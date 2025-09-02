@@ -6,7 +6,7 @@ import VForm from '@/components/Form/VForm.vue';
 import VInputMask from '@/components/Form/VInputMask.vue';
 import { checkBoxText } from '@/composables/userUser/models';
 
-const props = defineProps<{
+defineProps<{
   modelValue: IAuthForm
 }>();
 
