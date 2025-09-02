@@ -1,0 +1,236 @@
+<script setup lang="ts">
+import { Button, Checkbox, InputText, Message, Select, SelectButton } from 'primevue';
+import { computed, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { backArrow, marker } from '@/assets/icons';
+import FormLabel from '@/components/Form/FormLabel.vue';
+import VForm from '@/components/Form/VForm.vue';
+import VInputMask from '@/components/Form/VInputMask.vue';
+import VInputNumber from '@/components/Form/VInputNumber.vue';
+import VInputText from '@/components/Form/VInputText.vue';
+import LangSwitcher from '@/components/UI/LangSwitcher.vue';
+import { formRules } from '@/composables/Form/models';
+import { useThemeMode, useToastService } from '@/composables/UI/';
+
+import { usePosts } from '@/composables/usePosts';
+import { $confirm } from '@/plugins/confirmation.ts';
+
+const { t } = useI18n();
+const $toast = useToastService();
+const defaultConfirm = async () => {
+  const result = await $confirm.default({ title: 'Confirmation title', subtitle: `Are you sure to do smth? ${t('hello')}` });
+  if (result) {
+    console.log('Do smth after accept.');
+  }
+  else {
+    console.log('Do smth after reject.');
+  }
+};
+const infoConfirm = async () => {
+  await $confirm.info({ title: 'Info confirmation', subtitle: 'Info confirmation subtitle' });
+  console.log('After button click. Info');
+};
+const successConfirm = async () => {
+  await $confirm.success({ title: 'Success confirm', subtitle: 'Success confirmation subtitle' });
+  console.log('After button click. Success');
+};
+const errorConfirm = async () => {
+  await $confirm.error({ title: 'Error confirm', subtitle: 'Error confirmation subtitle' });
+  console.log('After button click. Error');
+};
+
+const severities = ['error', 'secondary', 'info', 'success', 'warn', 'contrast'];
+
+const buttonLoading = ref(true);
+
+const text = ref('');
+const text2 = ref('');
+const text3 = ref('');
+const numberFieldValue = ref(0);
+const maskFieldValue = ref('');
+const maskFieldValue2 = ref('');
+
+const secondField = ref(false);
+const setThirdFieldRequired = ref(false);
+const thirdFieldRules = computed(() => {
+  if (!setThirdFieldRequired.value) return [];
+  return [formRules.required()];
+});
+
+const handleSubmit = () => {
+  $confirm.success({ title: 'Success', subtitle: 'Form submitted' });
+};
+
+const { modeModel, modes } = useThemeMode();
+const { loading, postsError, getPosts } = usePosts();
+
+onMounted(() => {
+  getPosts();
+});
+</script>
+
+<template>
+  <div class="page">
+    <div style="display: flex; align-items: center; gap: 1rem; width: 100%;">
+      <LangSwitcher />
+      {{ t('page.example', { name: '123' }) }}
+
+      <h1> {{ t('hello') }} </h1>
+
+      <div style="margin-left: auto" />
+      <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="small" />
+      <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" />
+      <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="large" />
+    </div>
+
+    <div class="font-18-b">
+      {{ loading ? 'Posts is loading...' : postsError ? 'Posts server error' : 'Posts have been loaded' }}
+    </div>
+
+    <hr>
+
+    <Button label="Primary small" size="small" />
+    <Button label="Primary" />
+    <Button label="Primary large" size="large" />
+
+    <Button label="Secondary small" size="small" severity="secondary" />
+    <Button label="Secondary" severity="secondary" />
+    <Button label="Secondary large" size="large" severity="secondary" />
+
+    <hr>
+
+    <Button label="svg icon" :icon="marker" severity="success" />
+    <Button label="Icon no-fill" :icon="marker" icon-pos="right" severity="info" icon-class="no-fill" />
+    <Button label="Icon fill-red" :icon="marker" icon-pos="top" severity="secondary" icon-color="red" />
+
+    <Button :icon="backArrow" severity="primary" text />
+
+    <Button label="Loading test" severity="help" :loading="buttonLoading" />
+    <Button label="Loading test" severity="help" />
+
+    <hr>
+
+    <Button label="Default confirmation" severity="warn" @click="defaultConfirm" />
+    <Button label="Info confirmation" severity="info" @click="infoConfirm" />
+    <Button label="Success confirmation" severity="success" @click="successConfirm" />
+    <Button label="Error confirmation" severity="danger" @click="errorConfirm" />
+
+    <Button label="Success toast" severity="success" @click="$toast.success('success toast')" />
+    <Button label="Info toast" severity="info" @click="$toast.info('info toast')" />
+    <Button label="Warning toast" severity="warn" @click="$toast.warning('warning toast')" />
+    <Button label="Error toast" severity="danger" @click="$toast.error('error toast')" />
+
+    <hr>
+
+    <Message v-for="type in severities" :key="type" :severity="type">
+      {{ type }} message example
+    </Message>
+
+    <hr>
+
+    <div class="field-group" style="align-items: center">
+      <InputText placeholder="Text-field-small" size="small" />
+      <InputText placeholder="Text-field-regular" />
+      <InputText placeholder="Text-field-large" size="large" />
+
+      <Select size="small" :options="severities" placeholder="Select small" />
+      <Select :options="severities" placeholder="Select" />
+      <Select size="large" :options="severities" placeholder="Select large" />
+    </div>
+
+    <VForm @submit-form="handleSubmit">
+      <div class="form-wrapper">
+        <div class="field-group">
+          <VInputText
+            v-model="text"
+            placeholder="Text-field-1"
+            :rules="[$formRules.required(), $formRules.minLength(10)]"
+          />
+
+          <VInputText
+            v-if="secondField"
+            v-model="text2"
+            placeholder="Text-field-2"
+            :rules="[$formRules.required()]"
+          />
+          <template v-else>
+            <div class="font-16-b w-full" style="text-align: center;">
+              Second field!
+            </div>
+          </template>
+
+          <VInputText
+            v-model="text3"
+            placeholder="Text-field-3"
+            :rules="thirdFieldRules"
+          />
+        </div>
+
+        <div class="field-group">
+          <VInputNumber
+            v-model="numberFieldValue"
+            :min="0"
+            :rules="[$formRules.required(), $formRules.minValue(20)]"
+            show-buttons
+            button-layout="horizontal"
+            placeholder="Number field"
+          />
+          <VInputNumber
+            v-model="numberFieldValue"
+            :min="0"
+            :rules="[$formRules.required(), $formRules.minValue(10)]"
+            show-buttons
+            placeholder="Number field"
+          />
+        </div>
+
+        <div class="field-group">
+          <VInputMask
+            v-model="maskFieldValue"
+            mask="99-99-99"
+            placeholder="Numbers with mask"
+            :rules="[$formRules.required()]"
+          />
+          <VInputMask
+            v-model="maskFieldValue2"
+            mask="aa-aa-aa"
+            placeholder="Letters with mask"
+          />
+        </div>
+        <div class="field-group">
+          <FormLabel label="Show second field" for="check-1">
+            <Checkbox v-model="secondField" binary input-id="check-1" />
+          </FormLabel>
+
+          <FormLabel label="Set third field required" for="check-2">
+            <Checkbox v-model="setThirdFieldRequired" binary input-id="check-2" />
+          </FormLabel>
+        </div>
+      </div>
+      <Button type="submit" label="Submit" fluid style="margin-top: 1.6rem" />
+    </VForm>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  hr {
+    width: 100%;
+  }
+}
+
+.form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.field-group {
+  display: flex;
+  gap: 1rem;
+}
+</style>
