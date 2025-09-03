@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Button } from 'primevue';
 import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { reload } from '@/assets/icons';
 import FaceId from '@/components/Auth/FaceId.vue';
 
@@ -12,6 +13,8 @@ const photoChecking = ref(false);
 
 const responseStatus = ref<string>('');
 
+const $router = useRouter();
+
 const handleCameraActive = () => {
   faceIdActive.value = !document.hidden;
 };
@@ -19,17 +22,20 @@ const handleCameraActive = () => {
 const handlePhoto = (image: string) => {
   photoChecking.value = true;
   setTimeout(() => {
-    const link = document.createElement('a');
-    link.href = image;
-    link.download = 'photo.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
+    // const link = document.createElement('a');
+    // link.href = image;
+    // link.download = 'photo.png';
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+    window.userImage = image;
     responseStatus.value = 'success';
     photoChecking.value = false;
+
+    $router.push({ name: 'user-info' });
   }, 3000);
 };
+
 const restartVideo = () => {
   faceIdActive.value = false;
   if (restartVideoSourceCount.value === 3) {
