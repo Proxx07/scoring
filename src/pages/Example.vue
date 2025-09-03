@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button, Checkbox, InputText, Message, Select, SelectButton } from 'primevue';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { backArrow, marker } from '@/assets/icons';
 import FormLabel from '@/components/Form/FormLabel.vue';
@@ -9,7 +9,6 @@ import VInputMask from '@/components/Form/VInputMask.vue';
 import VInputNumber from '@/components/Form/VInputNumber.vue';
 import VInputText from '@/components/Form/VInputText.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
-import { formRules } from '@/composables/Form/models';
 import { useThemeMode, useToastService } from '@/composables/UI/';
 
 import { usePosts } from '@/composables/usePosts';
@@ -18,7 +17,7 @@ import { $confirm } from '@/plugins/confirmation.ts';
 const { t } = useI18n();
 const $toast = useToastService();
 const defaultConfirm = async () => {
-  const result = await $confirm.default({ title: 'Confirmation title', subtitle: `Are you sure to do smth? ${t('hello')}` });
+  const result = await $confirm.default({ title: 'toast.warn', subtitle: 'confirmations.warning' });
   if (result) {
     console.log('Do smth after accept.');
   }
@@ -27,15 +26,15 @@ const defaultConfirm = async () => {
   }
 };
 const infoConfirm = async () => {
-  await $confirm.info({ title: 'Info confirmation', subtitle: 'Info confirmation subtitle' });
+  await $confirm.info({ title: 'toast.info', subtitle: 'confirmations.warning' });
   console.log('After button click. Info');
 };
 const successConfirm = async () => {
-  await $confirm.success({ title: 'Success confirm', subtitle: 'Success confirmation subtitle' });
+  await $confirm.success({ title: 'toast.success', subtitle: 'confirmations.warning' });
   console.log('After button click. Success');
 };
 const errorConfirm = async () => {
-  await $confirm.error({ title: 'Error confirm', subtitle: 'Error confirmation subtitle' });
+  await $confirm.error({ title: 'toast.error', subtitle: 'confirmations.warning' });
   console.log('After button click. Error');
 };
 
@@ -45,20 +44,14 @@ const buttonLoading = ref(true);
 
 const text = ref('');
 const text2 = ref('');
-const text3 = ref('');
 const numberFieldValue = ref(0);
 const maskFieldValue = ref('');
 const maskFieldValue2 = ref('');
 
 const secondField = ref(false);
-const setThirdFieldRequired = ref(false);
-const thirdFieldRules = computed(() => {
-  if (!setThirdFieldRequired.value) return [];
-  return [formRules.required()];
-});
 
 const handleSubmit = () => {
-  $confirm.success({ title: 'Success', subtitle: 'Form submitted' });
+  $confirm.success({ title: 'toast.success', subtitle: 'confirmations.warning' });
 };
 
 const { modeModel, modes } = useThemeMode();
@@ -157,12 +150,6 @@ onMounted(() => {
               Second field!
             </div>
           </template>
-
-          <VInputText
-            v-model="text3"
-            placeholder="Text-field-3"
-            :rules="thirdFieldRules"
-          />
         </div>
 
         <div class="field-group">
@@ -200,10 +187,6 @@ onMounted(() => {
         <div class="field-group">
           <FormLabel label="Show second field" for="check-1">
             <Checkbox v-model="secondField" binary input-id="check-1" />
-          </FormLabel>
-
-          <FormLabel label="Set third field required" for="check-2">
-            <Checkbox v-model="setThirdFieldRequired" binary input-id="check-2" />
           </FormLabel>
         </div>
       </div>
