@@ -2,10 +2,12 @@
 import { onBeforeMount } from 'vue';
 import { useThemeMode } from '@/composables/UI/';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { getCurrentLocale, setCurrentLocale } from '@/plugins/i18n/models';
 
 const { setTheme } = useThemeMode();
 
 onBeforeMount(() => {
+  setCurrentLocale(getCurrentLocale());
   setTheme();
 });
 </script>

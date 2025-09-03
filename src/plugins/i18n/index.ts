@@ -1,9 +1,11 @@
 import type { MessageSchema } from './types';
 import { createI18n } from 'vue-i18n';
+
 import en from './locales/en';
 import ru from './locales/ru';
 import uz from './locales/uz';
-import { DEFAULT_LANGUAGE, getCurrentLocale } from './models';
+
+import { DEFAULT_LANGUAGE, flagIcons, getCurrentLocale, langNames } from './models';
 
 export const i18n = createI18n<[MessageSchema], 'ru-RU' | 'en-US' | 'uz-UZ'>({
   legacy: false,
@@ -17,4 +19,6 @@ export const i18n = createI18n<[MessageSchema], 'ru-RU' | 'en-US' | 'uz-UZ'>({
   },
 });
 
-export const locales = i18n.global.availableLocales.map(ln => ({ name: ln.split('-')[0], value: ln }));
+export const locales = i18n.global.availableLocales.map((ln) => {
+  return { name: langNames[ln], value: ln, icon: flagIcons[ln] };
+});

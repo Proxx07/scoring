@@ -2,11 +2,13 @@
 import type { IEmits, IProps } from '@/store/confirmations/types';
 import { Button, Card } from 'primevue';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import VIcon from '@/components/UI/VIcon.vue';
 import { ConfirmationTypesColor, ConfirmationTypesIcon } from '@/store/confirmations/models';
 
 const props = defineProps<IProps>();
 const emit = defineEmits<IEmits>();
+const { t } = useI18n();
 
 const color = computed(() => ConfirmationTypesColor[props.type]);
 const icon = computed(() => ConfirmationTypesIcon[props.type]);
@@ -18,21 +20,21 @@ const icon = computed(() => ConfirmationTypesIcon[props.type]);
       <div class="header-wrapper">
         <VIcon :icon="icon" :color="color" class="icon" />
 
-        <h1 class="font-22-b">
-          {{ title }}
+        <h1 v-if="title" class="font-22-b">
+          {{ t(title) }}
         </h1>
       </div>
 
-      <div class="subtitle">
-        {{ subtitle }}
+      <div v-if="subtitle" class="subtitle">
+        {{ t(subtitle) }}
       </div>
 
       <div class="buttons">
         <Button v-if="type === 'default'" fluid severity="secondary" @click="emit('reject')">
-          Reject
+          {{ t('confirmations.reject') }}
         </Button>
         <Button fluid @click="emit('accept')">
-          {{ type === 'default' ? 'Accept' : 'Оk' }}
+          {{ type === 'default' ? t('confirmations.accept') : 'Оk' }}
         </Button>
       </div>
     </template>
@@ -42,7 +44,7 @@ const icon = computed(() => ConfirmationTypesIcon[props.type]);
 <style scoped lang="scss">
 .card {
   width: 100%;
-  max-width: 30rem;
+  max-width: 36rem;
   :deep(.p-card-content) {
     display: flex;
     flex-direction: column;

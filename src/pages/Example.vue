@@ -73,9 +73,8 @@ onMounted(() => {
   <div class="page">
     <div style="display: flex; align-items: center; gap: 1rem; width: 100%;">
       <LangSwitcher />
-      {{ t('page.example', { name: '123' }) }}
 
-      <h1> {{ t('hello') }} </h1>
+      <h1> {{ t('toast.info') }} </h1>
 
       <div style="margin-left: auto" />
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="small" />
@@ -187,13 +186,14 @@ onMounted(() => {
         <div class="field-group">
           <VInputMask
             v-model="maskFieldValue"
-            mask="99-99-99"
+            mask="##-##-##"
             placeholder="Numbers with mask"
+            :pt="{ root: { inputmode: 'numeric' } }"
             :rules="[$formRules.required()]"
           />
           <VInputMask
             v-model="maskFieldValue2"
-            mask="aa-aa-aa"
+            mask="@@-@@-AA"
             placeholder="Letters with mask"
           />
         </div>

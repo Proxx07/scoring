@@ -1,35 +1,79 @@
 <script setup lang="ts">
 import type { TLangs } from '@/plugins/i18n/models';
-import { Button } from 'primevue';
+import { Select } from 'primevue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import VIcon from '@/components/UI/VIcon.vue';
 import { locales } from '@/plugins/i18n';
-import { setCurrentLocale } from '@/plugins/i18n/models';
+import { flagIcons, langNames, setCurrentLocale } from '@/plugins/i18n/models';
 
 const { locale } = useI18n();
 
-const setLang = (lang: TLangs) => {
-  setCurrentLocale(lang);
-  locale.value = lang;
-};
+const selectedLang = computed(() => {
+  return {
+    name: langNames[locale.value as TLangs],
+    icon: flagIcons[locale.value as TLangs],
+  };
+});
+
+const lang = computed({
+  get() {
+    return locale.value;
+  },
+  set(value: TLangs) {
+    setCurrentLocale(value);
+    locale.value = value;
+  },
+});
 </script>
 
 <template>
   <div class="langs">
-    <Button
-      v-for="lang in locales"
-      :key="lang.value"
-      :severity="lang.value === locale ? 'success' : 'primary'"
-      size="small"
-      @click="setLang(lang.value)"
+    <Select
+      v-model="lang"
+      :options="locales"
+      option-value="value"
+      option-label="name"
+      class="lang-switcher"
     >
-      {{ lang.name }}
-    </Button>
+      <template #value>
+        <div class="select-item">
+          <VIcon :icon="selectedLang.icon" class="no-fill icon" />
+          {{ selectedLang.name }}
+        </div>
+      </template>
+
+      <template #option="slotProps">
+        <div class="select-item">
+          <VIcon :icon="slotProps.option.icon" class="no-fill icon" />
+          {{ slotProps.option.name }}
+        </div>
+      </template>
+    </Select>
   </div>
 </template>
 
 <style scoped lang="scss">
-.langs {
+.lang-switcher {
+  --p-select-dropdown-width: 2.6rem;
+  --p-select-padding-y: 1rem;
+  --p-select-padding-x: .5rem;
+  --p-icon-size: 1rem;
+  --p-select-background: transparent;
+  border: 0 !important;
+  box-shadow: none !important;
+  :deep(.p-select-dropdown) {
+    background: transparent;
+    color: currentColor;
+  }
+}
+
+.select-item {
   display: flex;
-  gap: .6rem;
+  gap: 1rem;
+  align-items: center;
+  .icon {
+    min-width: 2.5rem;
+  }
 }
 </style>

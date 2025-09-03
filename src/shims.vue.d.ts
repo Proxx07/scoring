@@ -1,8 +1,6 @@
 import 'vue-router';
-import type {DefineLocaleMessage, IsEmptyObject, IsNever, RemovedIndexResources} from "vue-i18n";
-import type {JsonPaths} from "@intlify/core-base";
-import {MessageSchema} from "@/plugins/i18n/types";
-import {formRules} from "@/composables/Form/models";
+import { MessageSchema } from "@/plugins/i18n/types";
+import { FormRules } from "@/composables/Form/models";
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue';
@@ -39,7 +37,7 @@ interface GlobalProperties {
     ResourceKeys extends Keys = IsNever<Keys> extends false ? Keys : never,
   >(key: Key | ResourceKeys, params?: Record<string, string | number>) => string,
   */
-  $formRules: typeof formRules,
+  $formRules: FormRules,
 }
 
 declare module '@vue/runtime-core' {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from 'primevue';
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { backArrow } from '@/assets/icons';
 
 const props = defineProps<{
@@ -16,11 +16,13 @@ const emit = defineEmits<{
 
 const bg = computed<string>(() => props.bgColor ? props.bgColor : 'transparent');
 const color = computed<string>(() => props.textColor ? props.textColor : 'inherit');
+
+const slots = useSlots();
 </script>
 
 <template>
   <div class="page-wrapper">
-    <div class="page-header">
+    <div class="page-header" :class="[slots['title-append'] && 'no-padding']">
       <Button
         v-if="props.backEnabled"
         :icon="backArrow"
@@ -31,6 +33,7 @@ const color = computed<string>(() => props.textColor ? props.textColor : 'inheri
       <div v-if="props.title" class="title">
         {{ props.title }}
       </div>
+      <slot name="title-append" />
     </div>
     <div class="page-content">
       <slot />
@@ -58,6 +61,9 @@ const color = computed<string>(() => props.textColor ? props.textColor : 'inheri
   min-height: 4.4rem;
   &:has(.back-button) {
     padding-right: 3.5rem;
+    &.no-padding {
+      padding-right: 0;
+    }
   }
 }
 .back-button {

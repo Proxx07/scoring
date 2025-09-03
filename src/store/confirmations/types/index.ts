@@ -1,4 +1,5 @@
 import type { VNode } from 'vue';
+import type { DeepKeyOf, MessageSchema } from '@/plugins/i18n/types';
 
 export interface IConfirmation {
   id: number
@@ -13,8 +14,8 @@ export interface IConfirmResponse {
 export type ConfirmationTypes = 'default' | 'success' | 'info' | 'error';
 
 export interface IProps {
-  title?: string
-  subtitle?: string
+  title?: DeepKeyOf<MessageSchema>
+  subtitle?: DeepKeyOf<MessageSchema>
   type: ConfirmationTypes
 }
 

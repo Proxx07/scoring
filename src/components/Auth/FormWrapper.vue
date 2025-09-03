@@ -1,51 +1,72 @@
 <script setup lang="ts">
 import type { IAuthForm } from '@/composables/userUser/types';
 import { Button, Checkbox } from 'primevue';
+import { computed, nextTick, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import FormLabel from '@/components/Form/FormLabel.vue';
 import VForm from '@/components/Form/VForm.vue';
 import VInputMask from '@/components/Form/VInputMask.vue';
-import { checkBoxText } from '@/composables/userUser/models';
 
-defineProps<{
+const props = defineProps<{
+  loading?: boolean
+  buttonText?: string
   modelValue: IAuthForm
 }>();
 
 const emit = defineEmits<{
+  (e: 'update:modelValue', value: IAuthForm): void
   (e: 'submit-form'): void
 }>();
+
+const { t } = useI18n();
+
+const form = ref({ ...props.modelValue });
+const buttonText = computed(() => {
+  if (props.loading) return t('loading');
+  if (props.buttonText) return props.buttonText;
+  return t('continue');
+});
+const submitHandler = () => {
+  emit('update:modelValue', form.value);
+  nextTick(() => {
+    emit('submit-form');
+  });
+};
 </script>
 
 <template>
-  <VForm @submit-form="emit('submit-form')">
+  <VForm @submit-form="submitHandler">
     <VInputMask
-      v-model="modelValue.passport"
-      label="Серия / номер паспорта"
-      mask="aa/9999999"
+      v-model="form.passport"
+      :label="t('form.passport')"
+      mask="AA/#######"
       placeholder="AA/#######"
       :rules="[$formRules.required()]"
     />
 
     <VInputMask
-      v-model="modelValue.birthDate"
-      label="Дата рождения"
-      mask="99/99/9999"
+      v-model="form.birthDate"
+      :label="t('form.birthDate')"
+      mask="##/##/####"
       placeholder="XX/XX/XXXX"
+      :pt="{ root: { inputmode: 'numeric' } }"
       :rules="[$formRules.required()]"
     />
 
     <VInputMask
-      v-model="modelValue.phone"
-      label="Номер телефона"
-      mask="+999 99 999 99 99"
-      placeholder="+998 99 999 99 99"
+      v-model="form.phone"
+      :label="t('form.phone')"
+      mask="+### ## ### ## ##"
+      placeholder="+998 ## ### ## ##"
+      :pt="{ root: { inputmode: 'numeric' } }"
       :rules="[$formRules.required()]"
     />
 
-    <FormLabel :label="checkBoxText" for="check-1" label-class="font-10-r" class="mt-auto">
-      <Checkbox v-model="modelValue.agreement" binary input-id="check-1" />
+    <FormLabel :label="t('form.agreement')" for="check-1" label-class="font-10-r" class="mt-auto">
+      <Checkbox v-model="form.agreement" binary input-id="check-1" required />
     </FormLabel>
 
-    <Button type="submit" label="Продолжить" size="large" fluid />
+    <Button type="submit" :label="buttonText" size="large" fluid :loading="loading" />
   </VForm>
 </template>
 

@@ -22,5 +22,4 @@ app
   .use(ToastService)
   .mount('#app');
 
-app.config.globalProperties.$tl = i18n.global.t;
-app.config.globalProperties.$formRules = formRules;
+app.config.globalProperties.$formRules = formRules(i18n.global.t);

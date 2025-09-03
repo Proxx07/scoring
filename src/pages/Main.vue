@@ -1,22 +1,35 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import FormWrapper from '@/components/Auth/FormWrapper.vue';
 import IdenityWrapper from '@/components/Auth/IdenityWrapper.vue';
 import OtpWrapper from '@/components/Auth/OtpWrapper.vue';
+import LangSwitcher from '@/components/UI/LangSwitcher.vue';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
 import { useThemeMode } from '@/composables/UI';
 import { useUser } from '@/composables/userUser';
 import { orders } from '@/composables/userUser/models';
 
 const { isDark } = useThemeMode();
-const { form, step, otp, formSubmitHandler, otpSubmitHandler, backHandle } = useUser();
+const { t } = useI18n();
+const {
+  form, step, otp, formLoading, otpLoading,
+  time, isTimerActive,
+  formSubmitHandler, otpSubmitHandler, backHandle,
+} = useUser();
+
+const formButtonText = computed(() => {
+  return isTimerActive.value ? t('main.resendTimer', { time: time.value }) : '';
+});
 
 const bg = computed<string>(() => {
   if (step.value === 'otp') return 'var(--primary-500)';
   return isDark.value ? 'var(--primary-950)' : 'var(--primary-50)';
 });
+
 const color = computed<string>(() => step.value === 'otp' ? 'var(--primary-surface-color)' : 'inherit');
-const title = computed<string>(() => step.value === 'form' ? 'Оформление' : '');
+const title = computed<string>(() => step.value === 'form' ? t('main.title') : '');
+
 const transitionName = ref('slide-in-right');
 
 watch(step, (newValue, oldValue) => {
@@ -34,10 +47,15 @@ watch(step, (newValue, oldValue) => {
     :back-enabled="step !== 'form'"
     @back-button-clicked="backHandle"
   >
+    <template v-if="step === 'form'" #title-append>
+      <LangSwitcher />
+    </template>
     <TransitionGroup :name="transitionName">
       <FormWrapper
         v-if="step === 'form'"
         v-model="form"
+        :loading="formLoading"
+        :button-text="formButtonText"
         class="form"
         @submit-form="formSubmitHandler"
       />
@@ -46,7 +64,12 @@ watch(step, (newValue, oldValue) => {
         v-if="step === 'otp'"
         v-model="otp"
         class="form"
+        :resend-timer="time"
+        :resend-enabled="!isTimerActive"
+        :length="4"
+        :loading="otpLoading"
         :phone="form.phone"
+        @resend-code="formSubmitHandler"
         @submit-form="otpSubmitHandler"
       />
 

@@ -123,6 +123,7 @@ export const useFaceID = (_: IProps, emit: IEmits) => {
     try {
       await faceapi.nets.tinyFaceDetector.loadFromUri('/cv-models');
       await faceapi.nets.faceLandmark68TinyNet.loadFromUri('/cv-models');
+
       const stream = await navigator.mediaDevices.getUserMedia(setConstraint());
       if (!video.value) return;
       video.value.srcObject = stream;
