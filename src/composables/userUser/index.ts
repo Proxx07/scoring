@@ -1,5 +1,6 @@
 import type { FormStepTypes, IAuthForm } from './types';
 import { computed, ref } from 'vue';
+import $axios from '@/api';
 import { useTimer } from '@/composables/UI';
 import { $confirm } from '@/plugins/confirmation.ts';
 import { setAuthForm } from './models';
@@ -41,6 +42,11 @@ export const useUser = () => {
     }
   };
 
+  const fetchTestDataFromApi = async () => {
+    const { data, error } = await $axios.get<string[]>('/api/partner/GetTariffs');
+    console.log({ data, error });
+  };
+
   return {
     form,
     step,
@@ -52,5 +58,7 @@ export const useUser = () => {
     backHandle,
     otpSubmitHandler,
     formSubmitHandler,
+
+    fetchTestDataFromApi,
   };
 };

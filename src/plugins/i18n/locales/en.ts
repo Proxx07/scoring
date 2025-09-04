@@ -12,6 +12,7 @@ export default {
   ok: 'Great, stay still!',
 
   continue: 'Continue',
+  confirm: 'Confirm',
 
   main: {
     title: 'Registration',
@@ -21,6 +22,18 @@ export default {
     requestCode: 'Request code again',
     resendTimer: 'Resend available in: {time}',
     resendRequest: 'You can request a resend in',
+  },
+
+  userInfo: {
+    title: 'Your details',
+    fullName: 'Full name',
+    birthDate: 'Date of birth',
+    phone: 'Phone number',
+    pinfl: 'PINFL',
+    tin: 'TIN',
+    district: 'District',
+    street: 'Street',
+    note: 'Please make sure that the personal data you have provided is correct and confirm it.',
   },
 
   form: {

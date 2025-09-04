@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button, Checkbox, InputText, Message, Select, SelectButton } from 'primevue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { backArrow, marker } from '@/assets/icons';
 import FormLabel from '@/components/Form/FormLabel.vue';
@@ -9,13 +9,13 @@ import VInputMask from '@/components/Form/VInputMask.vue';
 import VInputNumber from '@/components/Form/VInputNumber.vue';
 import VInputText from '@/components/Form/VInputText.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
-import { useThemeMode, useToastService } from '@/composables/UI/';
+import { useThemeMode } from '@/composables/UI/';
 
-import { usePosts } from '@/composables/usePosts';
 import { $confirm } from '@/plugins/confirmation.ts';
+import { useToastStore } from '@/store/toastsStore.ts';
 
 const { t } = useI18n();
-const $toast = useToastService();
+const $toast = useToastStore();
 const defaultConfirm = async () => {
   const result = await $confirm.default({ title: 'toast.warn', subtitle: 'confirmations.warning' });
   if (result) {
@@ -55,11 +55,6 @@ const handleSubmit = () => {
 };
 
 const { modeModel, modes } = useThemeMode();
-const { loading, postsError, getPosts } = usePosts();
-
-onMounted(() => {
-  getPosts();
-});
 </script>
 
 <template>
@@ -73,10 +68,6 @@ onMounted(() => {
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="small" />
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" />
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="large" />
-    </div>
-
-    <div class="font-18-b">
-      {{ loading ? 'Posts is loading...' : postsError ? 'Posts server error' : 'Posts have been loaded' }}
     </div>
 
     <hr>

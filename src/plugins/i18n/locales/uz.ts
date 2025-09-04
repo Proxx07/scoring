@@ -12,6 +12,7 @@ export default {
   ok: 'Yaxshi, harakatsiz turing!',
 
   continue: 'Davom e‘tish',
+  confirm: 'Tasdiqlash',
 
   main: {
     title: 'Roʻyxatdan oʻtish',
@@ -21,6 +22,18 @@ export default {
     requestCode: 'Kodini qayta so‘rash',
     resendTimer: 'Qayta yuborishgacha: {time}',
     resendRequest: 'Qayta yuborishgacha qolgan vaqt',
+  },
+
+  userInfo: {
+    title: 'Sizning tafsilotlaringiz',
+    fullName: 'Toʻliq ism-sharif',
+    birthDate: 'Tugʻilgan sana',
+    phone: 'Telefon raqami',
+    pinfl: 'PINFL',
+    tin: 'INN',
+    district: 'Tuman',
+    street: 'Koʻcha',
+    note: 'Iltimos, taqdim etgan shaxsiy maʻlumotlaringiz toʻgʻri ekanligiga ishonch hosil qiling va uni tasdiqlang.',
   },
 
   form: {

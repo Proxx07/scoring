@@ -21,11 +21,13 @@ const emit = defineEmits<{
 const { t } = useI18n();
 
 const form = ref({ ...props.modelValue });
+
 const buttonText = computed(() => {
   if (props.loading) return t('loading');
   if (props.buttonText) return props.buttonText;
   return t('continue');
 });
+
 const submitHandler = () => {
   emit('update:modelValue', form.value);
   nextTick(() => {

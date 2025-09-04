@@ -1,12 +1,42 @@
+import * as process from 'node:process';
 import { fileURLToPath, URL } from 'node:url';
 import vue from '@vitejs/plugin-vue';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import mkcert from 'vite-plugin-mkcert';
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [vue(), mode === 'development' && mkcert()],
+    plugins: [
+      vue(),
+      mode === 'development' && mkcert(),
+      {
+        name: 'token-mw',
+        configureServer(server) {
+          server.middlewares.use('/token', async (req, res) => {
+            try {
+              const response = await fetch(`${env.VITE_API_URL}/api/account/token`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  userName: env.VITE_API_USER,
+                  password: env.VITE_API_PASSWORD,
+                }),
+              });
+              const result = await response.json();
+              res.setHeader('Content-Type', 'application/json');
+              res.setHeader('Set-Cookie', [`token=${result.token}; Path=/; SameSite=Strict; Secure`]);
+              res.end(JSON.stringify({ success: true }));
+            }
+            // eslint-disable-next-line unused-imports/no-unused-vars
+            catch (e) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ success: false }));
+            }
+          });
+        },
+      },
+    ],
 
     server: {
       open: true,

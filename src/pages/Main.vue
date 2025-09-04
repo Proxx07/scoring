@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import FormWrapper from '@/components/Auth/FormWrapper.vue';
 import IdenityWrapper from '@/components/Auth/IdenityWrapper.vue';
@@ -15,7 +15,7 @@ const { t } = useI18n();
 const {
   form, step, otp, formLoading, otpLoading,
   time, isTimerActive,
-  formSubmitHandler, otpSubmitHandler, backHandle,
+  formSubmitHandler, otpSubmitHandler, backHandle, fetchTestDataFromApi,
 } = useUser();
 
 const formButtonText = computed(() => {
@@ -36,6 +36,10 @@ watch(step, (newValue, oldValue) => {
   const newIndex = orders.indexOf(newValue);
   const prevIndex = orders.indexOf(oldValue);
   transitionName.value = newIndex > prevIndex ? 'slide-in-right' : 'slide-in-left';
+});
+
+onMounted(() => {
+  fetchTestDataFromApi();
 });
 </script>
 

@@ -12,6 +12,7 @@ export const i18n = createI18n<[MessageSchema], 'ru-RU' | 'en-US' | 'uz-UZ'>({
   locale: getCurrentLocale(),
   fallbackLocale: DEFAULT_LANGUAGE,
   globalInjection: false,
+  warnHtmlMessage: false,
   messages: {
     'ru-RU': ru,
     'en-US': en,

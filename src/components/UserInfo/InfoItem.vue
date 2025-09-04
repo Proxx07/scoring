@@ -10,7 +10,7 @@ defineProps<{
     <div class="font-14-r">
       {{ title }}
     </div>
-    <div class="font-18-b">
+    <div class="font-16-b">
       {{ value }}
     </div>
   </div>
