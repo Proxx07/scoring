@@ -19,7 +19,7 @@ const handleCameraActive = () => {
   faceIdActive.value = !document.hidden;
 };
 
-const handlePhoto = (image: string) => {
+const handlePhoto = (/* image: string */) => {
   photoChecking.value = true;
   setTimeout(() => {
     // const link = document.createElement('a');
@@ -28,7 +28,7 @@ const handlePhoto = (image: string) => {
     // document.body.appendChild(link);
     // link.click();
     // document.body.removeChild(link);
-    window.userImage = image;
+    // window.userImage = image;
     responseStatus.value = 'success';
     photoChecking.value = false;
 

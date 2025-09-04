@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { Button } from 'primevue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
 import InfoItem from '@/components/UserInfo/InfoItem.vue';
 
 const { t } = useI18n();
-const $router = useRouter();
+/* const $router = useRouter(); */
 
 const mockInfoItems = [
   { title: t('userInfo.fullName'), value: 'Arnold Theodore Shwarzenegger' },
