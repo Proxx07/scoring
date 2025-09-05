@@ -8,14 +8,14 @@ export const useFormField = <MODEL_VALUE_TYPE extends string | number, FIELD_PRO
   const isValidated = inject(IS_VALIDATED);
   const addValidationToForm = inject(ADD_FORM_VALIDATION_RULE);
 
-  const isMaskFieldCorrect = ref(false);
+  const isMaskFieldCorrect = ref(true);
   const val = computed<MODEL_VALUE_TYPE | undefined>({
     get() {
       return props.modelValue;
     },
 
     set(value: MODEL_VALUE_TYPE | undefined) {
-      if (typeof value === 'undefined') return;
+      if (typeof value === 'undefined' || props.loading) return;
       emit('update:modelValue', value);
     },
   });

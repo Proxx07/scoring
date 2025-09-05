@@ -21,8 +21,5 @@ defineProps<{
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  .font-14-r {
-    color: var(--p-zinc-400);
-  }
 }
 </style>

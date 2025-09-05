@@ -83,8 +83,11 @@ const inputValueChangeHandle = () => {
 <style scoped lang="scss">
 .otp-input {
   margin-bottom: 1.6rem;
+  --p-inputtext-color: var(--black);
   &:deep(input) {
     -moz-appearance: textfield;
+    border: none;
+    background: var(--secondary-500);
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;

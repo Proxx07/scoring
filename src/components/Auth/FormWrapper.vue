@@ -23,7 +23,7 @@ const { t } = useI18n();
 const form = ref({ ...props.modelValue });
 
 const buttonText = computed(() => {
-  if (props.loading) return t('loading');
+  if (props.loading) return t('sending');
   if (props.buttonText) return props.buttonText;
   return t('continue');
 });
@@ -41,6 +41,7 @@ const submitHandler = () => {
     <VInputMask
       v-model="form.passport"
       :label="t('form.passport')"
+      :loading="loading"
       mask="AA/#######"
       placeholder="AA/#######"
       :rules="[$formRules.required()]"
@@ -49,19 +50,22 @@ const submitHandler = () => {
     <VInputMask
       v-model="form.birthDate"
       :label="t('form.birthDate')"
+      :loading="loading"
       mask="##/##/####"
       placeholder="XX/XX/XXXX"
       :pt="{ root: { inputmode: 'numeric' } }"
-      :rules="[$formRules.required()]"
+      :rules="[$formRules.required(), $formRules.birthDate()]"
     />
 
     <VInputMask
       v-model="form.phone"
       :label="t('form.phone')"
+      :loading="loading"
       mask="+### ## ### ## ##"
       placeholder="+998 ## ### ## ##"
       :pt="{ root: { inputmode: 'numeric' } }"
       :rules="[$formRules.required()]"
+      unmask
     />
 
     <FormLabel :label="t('form.agreement')" for="check-1" label-class="font-10-r" class="mt-auto">

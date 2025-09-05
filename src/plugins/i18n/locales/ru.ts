@@ -13,6 +13,7 @@ export default {
 
   continue: 'Продолжить',
   confirm: 'Подтвердить',
+  sending: 'Отправка...',
 
   main: {
     title: 'Оформление',
@@ -56,6 +57,7 @@ export default {
     required: 'Обязательное поле!',
     minLength: 'Длина должна быть больше {opt}',
     minValue: 'Значение должно быть больше {opt}',
+    invalidDate: 'Дата указана неверно! Введите дату в формате "день/месяц/год"',
   },
 
   toast: {

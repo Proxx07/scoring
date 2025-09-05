@@ -41,6 +41,15 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
       port: 1234,
+      proxy: {
+        /*
+        '/soliq': {
+          target: 'https://my3.soliq.uz/',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/soliq/, '/api/'),
+        },
+        */
+      },
     },
 
     css: {

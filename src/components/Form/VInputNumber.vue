@@ -13,11 +13,12 @@ const { val, fieldValid, errorMessage } = useFormField<number, InputNumberProps>
 </script>
 
 <template>
-  <FormLabel :label="props.label" :error-message="!fieldValid ? errorMessage : ''">
+  <FormLabel :label="props.label" :error-message="!fieldValid ? errorMessage : ''" :loading="loading">
     <InputNumber
       v-bind="{ ...props, ...$attrs }"
       :model-value="val"
       :invalid="!fieldValid"
+      :disabled="loading"
       locale="ru-RU"
       @input="$val => val = ($val.value as number)"
     />

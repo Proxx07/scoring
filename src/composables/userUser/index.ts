@@ -3,31 +3,38 @@ import { computed, ref } from 'vue';
 import $axios from '@/api';
 import { useTimer } from '@/composables/UI';
 import { $confirm } from '@/plugins/confirmation.ts';
-import { setAuthForm } from './models';
+import { useGlobalData } from '@/store/userGlobalData.ts';
+import { authFormDTO, setAuthForm } from './models';
 
 export const useUser = () => {
   const { start, time, isTimerActive } = useTimer();
+  const globalStore = useGlobalData();
+
   const form = ref<IAuthForm>(setAuthForm());
   const step = ref<FormStepTypes>('form');
-
   const otp = ref<string>('');
-  const loading = ref(false);
 
+  const loading = ref(false);
   const formLoading = computed(() => loading.value && step.value === 'form');
   const otpLoading = computed(() => loading.value);
+
   const formSubmitHandler = async () => {
     if (isTimerActive.value || formLoading.value) return;
-    loading.value = true;
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    loading.value = false;
+
+    const { data, error }
+      = await $axios.post<string>('/api/partner/CreateContractor', authFormDTO(form.value), { loading });
+    if (error) return;
+
+    globalStore.setUserID(data);
     start(1);
     step.value = 'otp';
   };
 
   const otpSubmitHandler = async () => {
-    loading.value = true;
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    loading.value = false;
+    const { data, error }
+      = await $axios.post('/api/partner/ConfirmContractorSms', { contractorId: globalStore.userID, code: otp.value }, { loading });
+    if (!data || error) return;
+
     step.value = 'identity';
   };
 
@@ -42,11 +49,6 @@ export const useUser = () => {
     }
   };
 
-  const fetchTestDataFromApi = async () => {
-    const { data, error } = await $axios.get<string[]>('/api/partner/GetTariffs');
-    console.log({ data, error });
-  };
-
   return {
     form,
     step,
@@ -58,7 +60,5 @@ export const useUser = () => {
     backHandle,
     otpSubmitHandler,
     formSubmitHandler,
-
-    fetchTestDataFromApi,
   };
 };

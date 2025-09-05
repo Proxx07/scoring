@@ -22,17 +22,18 @@ const maska = {
 };
 
 const maskInputHandler = (event: CustomEvent<MaskaDetail>) => {
-  val.value = event.detail.unmasked;
+  val.value = props.unmask ? event.detail.unmasked : event.detail.masked;
   isMaskFieldCorrect.value = event.detail.completed;
 };
 </script>
 
 <template>
-  <FormLabel :label="props.label" :error-message="!fieldValid ? errorMessage : ''">
+  <FormLabel :label="props.label" :error-message="!fieldValid ? errorMessage : ''" :loading="loading">
     <InputText
       v-maska="maska"
       v-bind="{ ...props, ...$attrs }"
       :invalid="!fieldValid"
+      :disabled="loading"
       @maska="maskInputHandler"
     />
   </FormLabel>

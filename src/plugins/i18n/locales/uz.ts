@@ -13,6 +13,7 @@ export default {
 
   continue: 'Davom e‘tish',
   confirm: 'Tasdiqlash',
+  sending: 'Yuborish...',
 
   main: {
     title: 'Roʻyxatdan oʻtish',
@@ -56,6 +57,7 @@ export default {
     required: 'Majburiy maydon!',
     minLength: 'Uzunlik {opt} dan katta bo‘lishi kerak',
     minValue: 'Qiymat {opt} dan katta bo‘lishi kerak',
+    invalidDate: 'Sana noto‘g‘ri kiritilgan! Iltimos, sanani "kun/oy/yil" formatida kiriting',
   },
 
   toast: {

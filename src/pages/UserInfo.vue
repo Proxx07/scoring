@@ -21,7 +21,6 @@ const mockInfoItems = [
 <template>
   <PageWrapper
     title="Ваши данные"
-    bg-color="var(--primary-50)"
     text-color="var(--black)"
     back-enabled
   >

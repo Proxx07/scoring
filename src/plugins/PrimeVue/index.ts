@@ -99,6 +99,8 @@ const customPreset = definePreset(Aura, {
         formField: {
           background: 'var(--secondary-500)',
           color: 'var(--black)',
+          disabledColor: 'var(--black)',
+          disabledBackground: 'var(--secondary-400)',
           placeholderColor: '{surface.800}',
           borderColor: 'var(--primary-100)',
           hoverBorderColor: 'var(--primary-200)',
@@ -110,6 +112,8 @@ const customPreset = definePreset(Aura, {
         formField: {
           background: '{zinc.900}',
           color: 'var(--white)',
+          disabledColor: 'var(--white)',
+          disabledBackground: '{zinc.800}',
           placeholderColor: '{surface.600}',
           borderColor: 'var(--primary-950)',
           hoverBorderColor: 'var(--primary-800)',

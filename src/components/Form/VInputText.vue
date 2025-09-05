@@ -13,8 +13,8 @@ const { val, fieldValid, errorMessage } = useFormField<string, InputTextProps>(p
 </script>
 
 <template>
-  <FormLabel :label="props.label" :error-message="!fieldValid ? errorMessage : ''">
-    <InputText v-bind="{ ...props, ...$attrs }" v-model="val" :invalid="!fieldValid" />
+  <FormLabel :label="props.label" :error-message="!fieldValid ? errorMessage : ''" :loading="loading">
+    <InputText v-bind="{ ...props, ...$attrs }" v-model="val" :invalid="!fieldValid" :disabled="loading" />
   </FormLabel>
 </template>
 

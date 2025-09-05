@@ -19,23 +19,23 @@ const $toast = useToastStore();
 const defaultConfirm = async () => {
   const result = await $confirm.default({ title: 'toast.warn', subtitle: 'confirmations.warning' });
   if (result) {
-    console.log('Do smth after accept.');
+    $toast.info('Do smth after accept.');
   }
   else {
-    console.log('Do smth after reject.');
+    $toast.warning('Do smth after reject.');
   }
 };
 const infoConfirm = async () => {
   await $confirm.info({ title: 'toast.info', subtitle: 'confirmations.warning' });
-  console.log('After button click. Info');
+  $toast.info('After button click. Info');
 };
 const successConfirm = async () => {
   await $confirm.success({ title: 'toast.success', subtitle: 'confirmations.warning' });
-  console.log('After button click. Success');
+  $toast.success('After button click. Success');
 };
 const errorConfirm = async () => {
   await $confirm.error({ title: 'toast.error', subtitle: 'confirmations.warning' });
-  console.log('After button click. Error');
+  $toast.error('After button click. Error');
 };
 
 const severities = ['error', 'secondary', 'info', 'success', 'warn', 'contrast'];
@@ -69,6 +69,15 @@ const { modeModel, modes } = useThemeMode();
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" />
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="large" />
     </div>
+
+    <pre style="background: var(--black); color: var(--white); padding: 4rem; border-radius: var(--radius-l); font-size: 16px">
+      {{ `const getPosts = async () => {
+          const { data, error } = await $axios.get('/posts', body, { loading });
+          posts.value = error ? [] : data;
+          postsError.value = Boolean(error);
+          console.log(posts.value);
+      };` }}
+    </pre>
 
     <hr>
 

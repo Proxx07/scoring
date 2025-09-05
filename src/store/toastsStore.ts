@@ -1,8 +1,8 @@
 import type { ToastMessageOptions } from 'primevue/toast';
 import { defineStore } from 'pinia';
 import { useToast } from 'primevue/usetoast';
-
 import { i18n } from '@/plugins/i18n';
+import { getCurrentLocale, smsErrorsEnum } from '@/plugins/i18n/models';
 
 type ToastsSeverity = Exclude<ToastMessageOptions['severity'], undefined>;
 
@@ -19,7 +19,10 @@ export const useToastStore = defineStore('toast', () => {
 
   const fireToast = (severity: ToastsSeverity, title: string, text?: string) => {
     const summary = text ? title : i18n.global.t(defaultTitles[severity]!);
-    const detail = text || title;
+    const message = text || title;
+
+    const detail = (message && smsErrorsEnum[message]) ? smsErrorsEnum[message][getCurrentLocale()] : message;
+
     toast.add({ severity, summary, detail, life });
   };
 

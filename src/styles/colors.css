@@ -10,17 +10,29 @@
   --primary-800: rgb(153, 129, 0);
   --primary-900: rgb(102, 86, 0);
   --primary-950: rgb(64, 52, 0);*/
-  --primary-50:  rgba(240, 239, 251, 1);
+/*  --primary-50:  rgba(240, 239, 251, 1);
   --primary-100: rgb(217, 214, 253);
   --primary-200: rgb(197, 193, 252);
   --primary-300: rgb(168, 162, 250);
   --primary-400: rgb(139, 132, 247);
-  --primary-500: rgb(112, 101, 240); /* Base color */
+  --primary-500: rgb(112, 101, 240); !* Base color *!
   --primary-600: rgb(95, 84, 211);
   --primary-700: rgb(78, 68, 178);
   --primary-800: rgb(61, 53, 143);
   --primary-900: rgb(43, 37, 107);
-  --primary-950: rgb(28, 23, 71);
+  --primary-950: rgb(28, 23, 71);*/
+
+  --primary-50:  rgb(254, 232, 230);
+  --primary-100: rgb(252, 209, 205);
+  --primary-200: rgb(250, 174, 166);
+  --primary-300: rgb(247, 137, 125);
+  --primary-400: rgb(244, 107, 90);
+  --primary-500: rgb(240, 80, 57); /* Base color */
+  --primary-600: rgb(214, 67, 47);
+  --primary-700: rgb(180, 55, 39);
+  --primary-800: rgb(143, 43, 31);
+  --primary-900: rgb(108, 33, 24);
+  --primary-950: rgb(73, 21, 16);
 
   --secondary-50:  rgb(255, 255, 255);
   --secondary-100: rgb(254, 254, 254);
@@ -39,4 +51,12 @@
 
   --primary-surface-color: var(--white);
   --secondary-surface-color: var(--black);
+
+  --text-color: var(--black);
+  --site-bg: var(--white);
+}
+
+.app-dark {
+  --text-color: var(--white);
+  --site-bg: var(--black);
 }

@@ -13,6 +13,7 @@ export default {
 
   continue: 'Continue',
   confirm: 'Confirm',
+  sending: 'Sending...',
 
   main: {
     title: 'Registration',
@@ -56,6 +57,7 @@ export default {
     required: 'Required field!',
     minLength: 'Length must be greater than {opt}',
     minValue: 'Value must be greater than {opt}',
+    invalidDate: 'The date is incorrect! Please enter the date in the format "day/month/year"',
   },
 
   toast: {

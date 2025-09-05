@@ -14,8 +14,8 @@ const emit = defineEmits<{
   (e: 'back-button-clicked'): void
 }>();
 
-const bg = computed<string>(() => props.bgColor ? props.bgColor : 'transparent');
-const color = computed<string>(() => props.textColor ? props.textColor : 'inherit');
+const bg = computed<string>(() => props.bgColor ? props.bgColor : 'var(--site-bg)');
+const color = computed<string>(() => props.textColor ? props.textColor : 'var(--text-color)');
 
 const slots = useSlots();
 </script>
