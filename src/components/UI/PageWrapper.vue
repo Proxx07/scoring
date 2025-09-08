@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from 'primevue';
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { backArrow } from '@/assets/icons';
 
 const props = defineProps<{
@@ -16,6 +16,8 @@ const emit = defineEmits<{
 
 const bg = computed<string>(() => props.bgColor ? props.bgColor : 'var(--site-bg)');
 const color = computed<string>(() => props.textColor ? props.textColor : 'var(--text-color)');
+
+const slots = useSlots();
 </script>
 
 <template>
@@ -42,7 +44,7 @@ const color = computed<string>(() => props.textColor ? props.textColor : 'var(--
       <slot />
     </div>
 
-    <div class="page-footer content">
+    <div class="page-footer content" :class="[slots && 'has-content']">
       <slot name="page-footer" />
     </div>
   </div>
@@ -114,7 +116,10 @@ const color = computed<string>(() => props.textColor ? props.textColor : 'var(--
   background: v-bind(bg);
   transition: var(--transition-fast);
   position: relative;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  &.has-content {
+    border-radius: var(--radius-l) var(--radius-l) 0 0;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  }
   @include media-max($mobile) {
     padding-top: 1.3rem;
     padding-bottom: 1.3rem;
