@@ -1,89 +1,94 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { Button, Skeleton } from 'primevue';
+import { onBeforeMount } from 'vue';
 import { useI18n } from 'vue-i18n';
-import FormWrapper from '@/components/Auth/FormWrapper.vue';
-import IdenityWrapper from '@/components/Auth/IdenityWrapper.vue';
-import OtpWrapper from '@/components/Auth/OtpWrapper.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
-import { useUser } from '@/composables/userUser';
-import { orders } from '@/composables/userUser/models';
-
-const { t } = useI18n();
+import Price from '@/components/UI/Price.vue';
+import Product from '@/components/UserInfo/Product.vue';
+import Tariff from '@/components/UserInfo/Tariff.vue';
+import { useTariffs } from '@/composables/useTariffs';
 
 const {
-  form, step, otp, formLoading, otpLoading,
-  time, isTimerActive,
-  formSubmitHandler, otpSubmitHandler, backHandle,
-} = useUser();
+  tariffs, loading, getTariffs,
+  selectTariff, activeTariff,
+  products, productsTotalPrice,
+} = useTariffs();
 
-const bg = computed(() => step.value === 'otp' ? 'var(--primary-500)' : undefined);
-const color = computed(() => step.value === 'otp' ? 'var(--primary-surface-color)' : undefined);
-const title = computed<string>(() => step.value === 'form' ? t('main.title') : '');
-const formButtonText = computed(() => isTimerActive.value ? t('main.resendTimer', { time: time.value }) : '');
-
-const transitionName = ref('slide-in-right');
-watch(step, (newValue, oldValue) => {
-  const newIndex = orders.indexOf(newValue);
-  const prevIndex = orders.indexOf(oldValue);
-  transitionName.value = newIndex > prevIndex ? 'slide-in-right' : 'slide-in-left';
+const { t } = useI18n();
+onBeforeMount(() => {
+  getTariffs();
 });
 </script>
 
 <template>
-  <PageWrapper
-    :title="title"
-    :bg-color="bg"
-    :text-color="color"
-    :back-enabled="step !== 'form'"
-    @back-button-clicked="backHandle"
-  >
-    <template v-if="step === 'form'" #title-append>
+  <PageWrapper :title="t('chooseTariff')">
+    <template #title-append>
       <LangSwitcher />
     </template>
-    <TransitionGroup :name="transitionName">
-      <FormWrapper
-        v-if="step === 'form'"
-        v-model="form"
-        :loading="formLoading"
-        :button-text="formButtonText"
-        class="form"
-        @submit-form="formSubmitHandler"
-      />
+    <div class="products-list">
+      <div class="font-14-r">
+        {{ t('products') }}
+      </div>
 
-      <OtpWrapper
-        v-if="step === 'otp'"
-        v-model="otp"
-        class="form"
-        :resend-timer="time"
-        :resend-enabled="!isTimerActive"
-        :length="6"
-        :loading="otpLoading"
-        :phone="form.phone"
-        @resend-code="formSubmitHandler"
-        @submit-form="otpSubmitHandler"
-      />
+      <Product v-for="(product, index) in products" :key="index" :product="product" />
 
-      <IdenityWrapper v-if="step === 'identity'" class="form" />
-    </TransitionGroup>
+      <div class="products-total-price">
+        {{ t('productsSum') }}: <Price :price="productsTotalPrice" class="text-right" />
+      </div>
+    </div>
+    <div class="products-list" style="padding-top: 2rem">
+      <div class="font-16-r">
+        {{ t('selectTariff') }}
+      </div>
+
+      <template v-if="loading">
+        <Skeleton v-for="i in 3" :key="i" width="100%" height="10.3rem" />
+      </template>
+      <template v-else>
+        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
+        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
+        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
+        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
+        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
+      </template>
+    </div>
+    <template #page-footer>
+      <div class="footer">
+        <div class="footer-top">
+          {{ activeTariff ? 'Итоговая сумма' : t('selectTariff') }}
+          <Price v-if="activeTariff" :price="10000" />
+        </div>
+        <Button fluid :label="t('confirm')" size="large" :disabled="!activeTariff" />
+      </div>
+    </template>
   </PageWrapper>
 </template>
 
 <style scoped lang="scss">
-.form {
+.products-list {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 1rem;
-  & + .form {
-    position: absolute;
-    inset: 0;
-  }
+  padding-bottom: 1rem;
 }
-.form-footer {
-  margin-top: auto;
+.products-total-price {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  justify-content: space-between;
+  font: var(--font-14-r);
+}
+
+.footer {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: .6rem;
+  .footer-top {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    font: var(--font-14-r);
+  }
 }
 </style>

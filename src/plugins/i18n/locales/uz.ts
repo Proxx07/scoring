@@ -15,6 +15,14 @@ export default {
   confirm: 'Tasdiqlash',
   sending: 'Yuborish...',
 
+  chooseTariff: 'Tarifni tanlash',
+  products: 'Mahsulotlar',
+  productsSum: 'Mahsulotlar summasi',
+  selectTariff: 'Tarifni tanlang',
+  initialPayment: 'Dastlabki toʻlov',
+  currency: 'soʻm',
+  month: 'oy',
+
   main: {
     title: 'Roʻyxatdan oʻtish',
     enterSMS: 'SMS kodini kiriting',
@@ -48,6 +56,7 @@ export default {
     warning: 'Diqqat!',
 
     backToMain: 'Siz avtorizatsiya sahifasiga qaytarasiz, avval kiritilgan barcha ma’lumotlar saqlanmaydi',
+    hashError: 'Invalid hash',
 
     accept: 'Ok',
     reject: 'Bekor qilish',

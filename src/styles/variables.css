@@ -122,6 +122,17 @@ html {
     font: var(--font-28-b) !important;
 }
 
+
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
 .w-full {
     width: 100%;
     max-width: 100%;

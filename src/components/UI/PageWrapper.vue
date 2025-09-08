@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from 'primevue';
-import { computed, useSlots } from 'vue';
+import { computed } from 'vue';
 import { backArrow } from '@/assets/icons';
 
 const props = defineProps<{
@@ -16,41 +16,68 @@ const emit = defineEmits<{
 
 const bg = computed<string>(() => props.bgColor ? props.bgColor : 'var(--site-bg)');
 const color = computed<string>(() => props.textColor ? props.textColor : 'var(--text-color)');
-
-const slots = useSlots();
 </script>
 
 <template>
   <div class="page-wrapper">
-    <div class="page-header" :class="[slots['title-append'] && 'no-padding']">
-      <Button
-        v-if="props.backEnabled"
-        :icon="backArrow"
-        text
-        class="back-button"
-        @click="emit('back-button-clicked')"
-      />
+    <div class="page-header content">
+      <div class="side-items">
+        <Button
+          v-if="props.backEnabled"
+          :icon="backArrow"
+          text
+          fluid
+          class="back-button"
+          @click="emit('back-button-clicked')"
+        />
+      </div>
       <div v-if="props.title" class="title">
         {{ props.title }}
       </div>
-      <slot name="title-append" />
+      <div class="side-items">
+        <slot name="title-append" />
+      </div>
     </div>
-    <div class="page-content">
+    <div class="page-content content">
       <slot />
+    </div>
+
+    <div class="page-footer content">
+      <slot name="page-footer" />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.content {
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+  @include media-max($mobile) {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+}
 .page-wrapper {
-  padding: 3rem 2.4rem;
+  padding: 3rem 0 0;
   min-height: 100dvh;
+  max-height: 100dvh;
   color: v-bind(color);
   background: v-bind(bg);
   transition: var(--transition-fast);
   position: relative;
   display: flex;
   flex-direction: column;
+  .side-items {
+    min-width: 9.5rem;
+    max-width: 9.5rem;
+  }
+  @include media-max($mobile) {
+    padding-top: 2.6rem;
+    .side-items {
+      min-width: 5rem;
+      max-width: 5rem;
+    }
+  }
 }
 .page-header {
   display: flex;
@@ -59,12 +86,6 @@ const slots = useSlots();
   margin-bottom: 2rem;
   position: relative;
   min-height: 4.4rem;
-  &:has(.back-button) {
-    padding-right: 3.5rem;
-    &.no-padding {
-      padding-right: 0;
-    }
-  }
 }
 .back-button {
   --p-button-text-primary-color: var(--text-color);
@@ -84,5 +105,19 @@ const slots = useSlots();
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.page-footer {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  color: v-bind(color);
+  background: v-bind(bg);
+  transition: var(--transition-fast);
+  position: relative;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  @include media-max($mobile) {
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
+  }
 }
 </style>

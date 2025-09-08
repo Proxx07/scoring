@@ -53,7 +53,7 @@
   --secondary-surface-color: var(--black);
 
   --text-color: var(--black);
-  --site-bg: var(--white);
+  --site-bg: rgb(240, 240, 240);
 }
 
 .app-dark {

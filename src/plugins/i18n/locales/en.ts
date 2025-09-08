@@ -15,6 +15,14 @@ export default {
   confirm: 'Confirm',
   sending: 'Sending...',
 
+  chooseTariff: 'Choose tariff',
+  products: 'Products',
+  productsSum: 'Products total',
+  selectTariff: 'Select a tariff',
+  initialPayment: 'Initial payment',
+  currency: 'UZS',
+  month: 'month',
+
   main: {
     title: 'Registration',
     enterSMS: 'Enter SMS code',
@@ -48,6 +56,7 @@ export default {
     warning: 'Warning!',
 
     backToMain: 'You will be returned to the login page, all previously entered data will not be saved',
+    hashError: 'Invalid hash',
 
     accept: 'Ok',
     reject: 'Cancel',

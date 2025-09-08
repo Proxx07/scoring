@@ -15,6 +15,14 @@ export default {
   confirm: 'Подтвердить',
   sending: 'Отправка...',
 
+  chooseTariff: 'Выбор тарифа',
+  products: 'Продукты',
+  productsSum: 'Сумма товаров',
+  selectTariff: 'Выберите тариф',
+  initialPayment: 'Первоначальный взнос',
+  currency: 'сум',
+  month: 'месяц',
+
   main: {
     title: 'Оформление',
     enterSMS: 'Введите SMS-код',
@@ -48,6 +56,7 @@ export default {
     warning: 'Внимание!',
 
     backToMain: 'Вас вернёт на страницу авторизации, все заполненные раннее данные не будут сохранены',
+    hashError: 'Невалидный хэш',
 
     accept: 'Ок',
     reject: 'Отменить',

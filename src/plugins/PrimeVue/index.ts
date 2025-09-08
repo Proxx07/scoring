@@ -3,6 +3,7 @@ import type { PrimeVueConfiguration } from 'primevue/config';
 import type { RendererElement, RendererNode, VNode } from 'vue';
 import { definePreset } from '@primeuix/styled';
 import Aura from '@primeuix/themes/aura';
+import { skeletonConfig } from '@/plugins/PrimeVue/skeleton';
 import { toastConfig, toastPt } from '@/plugins/PrimeVue/toast';
 import { buttonConfig, buttonPt } from './button';
 import { cardConfig } from './card';
@@ -97,12 +98,12 @@ const customPreset = definePreset(Aura, {
     colorScheme: {
       light: {
         formField: {
-          background: 'var(--secondary-500)',
+          background: 'var(--white)',
           color: 'var(--black)',
           disabledColor: 'var(--black)',
           disabledBackground: 'var(--secondary-400)',
           placeholderColor: '{surface.800}',
-          borderColor: 'var(--primary-100)',
+          borderColor: 'transparent',
           hoverBorderColor: 'var(--primary-200)',
           focusBorderColor: 'var(--primary-500)',
         },
@@ -115,7 +116,7 @@ const customPreset = definePreset(Aura, {
           disabledColor: 'var(--white)',
           disabledBackground: '{zinc.800}',
           placeholderColor: '{surface.600}',
-          borderColor: 'var(--primary-950)',
+          borderColor: 'transparent',
           hoverBorderColor: 'var(--primary-800)',
           focusBorderColor: 'var(--primary-500)',
         },
@@ -134,6 +135,12 @@ const customPreset = definePreset(Aura, {
     },
 
     card: cardConfig(),
+
+    skeleton: {
+      colorScheme: {
+        light: skeletonConfig(),
+      },
+    },
 
     select: selectConfig(),
 

@@ -60,6 +60,9 @@ const lang = computed({
   --p-select-padding-x: .5rem;
   --p-icon-size: 1rem;
   --p-select-background: transparent;
+  @include media-max($mobile) {
+    --p-select-padding-x: 0;
+  }
   border: 0 !important;
   box-shadow: none !important;
   :deep(.p-select-dropdown) {
@@ -72,6 +75,12 @@ const lang = computed({
   display: flex;
   gap: 1rem;
   align-items: center;
+  width: 100%;
+  @include media-max($mobile) {
+    font-size: 0;
+    gap: 0;
+    justify-content: center;
+  }
   .icon {
     min-width: 2.5rem;
   }
