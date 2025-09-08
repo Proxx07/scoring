@@ -21,7 +21,7 @@ export const useTariffs = () => {
 
   const products = computed<IProduct[]>(() => [...globalStore.products, ...globalStore.products]);
   const productsTotalPrice = computed<number>(() => {
-    return globalStore.products.reduce((total, product) => total + product.price * product.quantity, 0);
+    return products.value.reduce((total, product) => total + product.price * product.quantity, 0);
   });
 
   return {
