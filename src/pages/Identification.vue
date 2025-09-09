@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { Button } from 'primevue';
 import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import $axios from '@/api';
 import { reload } from '@/assets/icons';
 import FaceId from '@/components/Auth/FaceId.vue';
+import { useGlobalData } from '@/store/userGlobalData.ts';
+
+const globalStore = useGlobalData();
 
 const restartVideoSourceCount = ref(0);
 const faceIdActive = ref<boolean>(true);
@@ -13,27 +16,23 @@ const photoChecking = ref(false);
 
 const responseStatus = ref<string>('');
 
-const $router = useRouter();
+// const $router = useRouter();
 
 const handleCameraActive = () => {
   faceIdActive.value = !document.hidden;
 };
 
-const handlePhoto = (/* image: string */) => {
+const handlePhoto = async (imageBlob: Blob) => {
   photoChecking.value = true;
-  setTimeout(() => {
-    // const link = document.createElement('a');
-    // link.href = image;
-    // link.download = 'photo.png';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    // window.userImage = image;
-    responseStatus.value = 'success';
-    photoChecking.value = false;
-
-    $router.push({ name: 'user-info' });
-  }, 3000);
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  const formData = new FormData();
+  formData.append('ContractorId', globalStore.userID);
+  formData.append('Image', imageBlob);
+  const { data, error } = await $axios.post('/api/partner/ConfirmIdentification', formData);
+  if (error || !data) return;
+  photoChecking.value = false;
+  responseStatus.value = 'error';
+  console.log(data);
 };
 
 const restartVideo = () => {

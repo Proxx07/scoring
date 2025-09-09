@@ -19,11 +19,7 @@ const mockInfoItems = [
 </script>
 
 <template>
-  <PageWrapper
-    title="Ваши данные"
-    text-color="var(--black)"
-    back-enabled
-  >
+  <PageWrapper title="Ваши данные" back-enabled>
     <div class="user-info">
       <div class="photo">
         PHOTO
@@ -58,7 +54,6 @@ const mockInfoItems = [
   padding-top: 1.2rem;
   text-align: center;
   grid-column: span 2;
-  color: var(--p-zinc-400);
   font: var(--font-14-r);
 }
 

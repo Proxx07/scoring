@@ -17,11 +17,11 @@ const { t } = useI18n();
       <div class="font-14-r">
         <div class="tariff-top">
           <span>{{ tariff.name }}</span>
-          <Price :price="tariff.markup * 10000" per-month />
+          <Price :price="tariff.monthlyPaymentAmount" per-month />
         </div>
         <div class="tariff-bottom">
           {{ t('initialPayment') }}
-          <Price :price="tariff.prepayPercent * 10000" />
+          <Price :price="tariff.prepaymentAmount" />
         </div>
       </div>
     </template>
@@ -31,6 +31,7 @@ const { t } = useI18n();
 <style scoped lang="scss">
 .tariff-card {
   border: 1px solid transparent;
+  cursor: pointer;
   &.active {
     border-color: var(--primary-500);
   }

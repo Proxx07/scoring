@@ -17,4 +17,8 @@ export interface ITariff {
   markup: number
   prepayPercent: number
   discount: number
+
+  prepaymentAmount: number
+  monthlyPaymentAmount: number
+  totalAmount: number
 }

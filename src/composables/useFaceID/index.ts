@@ -34,8 +34,8 @@ export const useFaceID = (_: IProps, emit: IEmits) => {
   };
 
   const handlePhotoUpload = async () => {
-    const photo = await takePhoto(overlay.value!, video.value!);
-    emit('photo-taken', photo);
+    const { blob } = await takePhoto(overlay.value!, video.value!);
+    emit('photo-taken', blob);
     clearInterval(interval);
   };
 
@@ -141,8 +141,8 @@ export const useFaceID = (_: IProps, emit: IEmits) => {
 
         faceapi.matchDimensions(overlay.value, size);
         await new Promise(resolve => setTimeout(resolve, 100));
-        const photoUrl = await takePhoto(overlay.value, video.value!);
-        bgImage.value = photoUrl;
+        const { image } = await takePhoto(overlay.value, video.value!);
+        bgImage.value = image;
         interval = setInterval(facePointsCalc, FACE_ID_INTERVALS_DELAY);
       };
     }

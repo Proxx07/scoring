@@ -51,9 +51,7 @@ onMounted(() => {
       <div class="font-24-b">
         Идентификация
       </div>
-      <div class="font-16-b">
-        Убедитесь, что ваше лицо хорошо видно, вы находитесь в хорошо освещённом помещении, и камера работает исправно.
-      </div>
+
       <div class="status-wrapper">
         <Message v-if="!props.responseStatus || props.responseStatus === 'error'" :severity="messageSeverity" class="message">
           <div class="font-18-b">
@@ -63,6 +61,11 @@ onMounted(() => {
         <RoundProgress v-if="!props.responseStatus && status === 'ok' && !loading" :duration="3" :size="40" @loaded="handlePhotoUpload" />
         <ProgressSpinner v-if="loading" stroke-width="8" class="size-4" />
       </div>
+
+      <div class="font-16-b mt-auto">
+        Убедитесь, что ваше лицо хорошо видно, вы находитесь в хорошо освещённом помещении, и камера работает исправно.
+      </div>
+
       <Button
         v-if="responseStatus === 'success'"
         severity="primary"
@@ -127,7 +130,7 @@ onMounted(() => {
   pointer-events: none;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   padding: 4rem 2rem;
   // ellipse mask
   -webkit-mask-image: radial-gradient(ellipse 55% 42% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
@@ -148,7 +151,7 @@ onMounted(() => {
   padding-left: 1rem;
   padding-right: 1rem;
   width: 100%;
-  margin: auto auto 0;
+  margin: 0 auto 0;
 }
 .message {
   width: 100%;

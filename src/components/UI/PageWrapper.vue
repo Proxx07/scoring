@@ -44,7 +44,7 @@ const slots = useSlots();
       <slot />
     </div>
 
-    <div class="page-footer content" :class="[slots && 'has-content']">
+    <div class="page-footer content" :class="[slots['page-footer'] && 'has-content']">
       <slot name="page-footer" />
     </div>
   </div>
@@ -52,11 +52,9 @@ const slots = useSlots();
 
 <style scoped lang="scss">
 .content {
-  padding-left: 2.4rem;
-  padding-right: 2.4rem;
+  --px: 2.4rem;
   @include media-max($mobile) {
-    padding-left: 1.6rem;
-    padding-right: 1.6rem;
+    --px: 1.6rem;
   }
 }
 .page-wrapper {
@@ -65,10 +63,10 @@ const slots = useSlots();
   max-height: 100dvh;
   color: v-bind(color);
   background: v-bind(bg);
-  transition: var(--transition-fast);
   position: relative;
   display: flex;
   flex-direction: column;
+
   .side-items {
     min-width: 9.5rem;
     max-width: 9.5rem;
@@ -88,6 +86,8 @@ const slots = useSlots();
   margin-bottom: 2rem;
   position: relative;
   min-height: 4.4rem;
+  padding-left: var(--px);
+  padding-right: var(--px);
 }
 .back-button {
   --p-button-text-primary-color: var(--text-color);
@@ -107,11 +107,12 @@ const slots = useSlots();
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  padding-left: var(--px);
+  padding-right: var(--px);
 }
 
 .page-footer {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding: 1.5rem var(--px);
   color: v-bind(color);
   background: v-bind(bg);
   transition: var(--transition-fast);

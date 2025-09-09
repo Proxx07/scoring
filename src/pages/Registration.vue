@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import FormWrapper from '@/components/Auth/FormWrapper.vue';
 import IdenityWrapper from '@/components/Auth/IdenityWrapper.vue';
 import OtpWrapper from '@/components/Auth/OtpWrapper.vue';
@@ -16,6 +17,8 @@ const {
   time, isTimerActive,
   formSubmitHandler, otpSubmitHandler, backHandle,
 } = useUser();
+
+const $router = useRouter();
 
 const bg = computed(() => step.value === 'otp' ? 'var(--primary-500)' : undefined);
 const color = computed(() => step.value === 'otp' ? 'var(--primary-surface-color)' : undefined);
@@ -35,8 +38,8 @@ watch(step, (newValue, oldValue) => {
     :title="title"
     :bg-color="bg"
     :text-color="color"
-    :back-enabled="step !== 'form'"
-    @back-button-clicked="backHandle"
+    back-enabled
+    @back-button-clicked="step === 'form' ? $router.push({ name: 'main' }) : backHandle"
   >
     <template v-if="step === 'form'" #title-append>
       <LangSwitcher />
@@ -78,6 +81,8 @@ watch(step, (newValue, oldValue) => {
   & + .form {
     position: absolute;
     inset: 0;
+    left: var(--px);
+    right: var(--px);
   }
 }
 .form-footer {

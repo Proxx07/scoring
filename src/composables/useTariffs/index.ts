@@ -9,7 +9,11 @@ export const useTariffs = () => {
 
   const { loading } = useFetchStates();
   const tariffs = ref<ITariff[]>([]);
-  const activeTariff = computed(() => globalStore.tariffId);
+
+  const activeTariff = computed<ITariff | undefined>(() => {
+    return tariffs.value.find(tariff => tariff.id === globalStore.tariffId);
+  });
+
   const selectTariff = (tariff: ITariff) => {
     globalStore.setTariff(tariff.id);
   };
@@ -19,7 +23,7 @@ export const useTariffs = () => {
     tariffs.value = error ? [] : data;
   };
 
-  const products = computed<IProduct[]>(() => [...globalStore.products, ...globalStore.products]);
+  const products = computed<IProduct[]>(() => globalStore.products);
   const productsTotalPrice = computed<number>(() => {
     return products.value.reduce((total, product) => total + product.price * product.quantity, 0);
   });

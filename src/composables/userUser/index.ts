@@ -22,7 +22,7 @@ export const useUser = () => {
     if (isTimerActive.value || formLoading.value) return;
 
     const { data, error }
-      = await $axios.post<string>('/api/partner/CreateContractor', authFormDTO(form.value), { loading });
+      = await $axios.post<string>('/api/partner/CreateContractor', { ...authFormDTO(form.value), productsInfo: globalStore.getProductsInfo() }, { loading });
     if (error) return;
 
     globalStore.setUserID(data);

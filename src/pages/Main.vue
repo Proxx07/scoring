@@ -2,6 +2,7 @@
 import { Button, Skeleton } from 'primevue';
 import { onBeforeMount } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
 import Price from '@/components/UI/Price.vue';
@@ -16,6 +17,7 @@ const {
 } = useTariffs();
 
 const { t } = useI18n();
+const $router = useRouter();
 onBeforeMount(() => {
   getTariffs();
 });
@@ -46,20 +48,28 @@ onBeforeMount(() => {
         <Skeleton v-for="i in 3" :key="i" width="100%" height="10.3rem" />
       </template>
       <template v-else>
-        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
-        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
-        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
-        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
-        <Tariff v-for="tariff in tariffs" :key="tariff.id" :tariff="tariff" :class="[tariff.id === activeTariff && 'active']" @click="selectTariff(tariff)" />
+        <Tariff
+          v-for="tariff in tariffs"
+          :key="tariff.id"
+          :tariff="tariff"
+          :class="[tariff.id === activeTariff?.id && 'active']"
+          @click="selectTariff(tariff)"
+        />
       </template>
     </div>
     <template #page-footer>
       <div class="footer">
         <div class="footer-top">
           {{ activeTariff ? 'Итоговая сумма' : t('selectTariff') }}
-          <Price v-if="activeTariff" :price="10000" />
+          <Price v-if="activeTariff" :price="activeTariff.totalAmount" />
         </div>
-        <Button fluid :label="t('confirm')" size="large" :disabled="!activeTariff" />
+        <Button
+          size="large"
+          fluid
+          :label="t('confirm')"
+          :disabled="!activeTariff"
+          @click="$router.push({ name: 'registration' })"
+        />
       </div>
     </template>
   </PageWrapper>
@@ -84,11 +94,12 @@ onBeforeMount(() => {
   display: flex;
   flex-direction: column;
   gap: .6rem;
-  .footer-top {
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-    font: var(--font-14-r);
-  }
+}
+.footer-top {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  font: var(--font-14-r);
+  padding-bottom: 0.5rem;
 }
 </style>

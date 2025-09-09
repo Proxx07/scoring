@@ -1,5 +1,4 @@
-import type { INavigation } from './types';
-
+/*
 export const navigation: INavigation[] = [
   {
     name: 'Main page',
@@ -11,3 +10,4 @@ export const navigation: INavigation[] = [
     link: '/about',
   },
 ];
+*/
