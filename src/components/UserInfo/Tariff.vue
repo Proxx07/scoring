@@ -46,7 +46,7 @@ const { t } = useI18n();
 .tariff-bottom {
   color: var(--secondary-800);
   display: flex;
-  gap: .5rem;
+  gap: .8rem;
   flex-direction: column;
 }
 </style>

@@ -22,3 +22,16 @@ export interface ISquare {
   faceSquareMin: number
   faceSquareMax: number
 }
+
+export interface IPassportData {
+  address: string
+  dateOfBirth: string
+  doc: string
+  givenName: string
+  patronymic: string
+  phone: string
+  pinfl: string
+  sex: string
+  surName: string
+  tin: string
+}

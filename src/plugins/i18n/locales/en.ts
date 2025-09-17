@@ -10,6 +10,7 @@ export default {
   mouthOpened: 'Please, close your mouth.',
   smiling: 'Please, don\'t smile',
   ok: 'Great, stay still!',
+  faceIdError: 'Failed to verify identity',
 
   continue: 'Continue',
   confirm: 'Confirm',
@@ -55,11 +56,29 @@ export default {
   confirmations: {
     warning: 'Warning!',
 
-    backToMain: 'You will be returned to the login page, all previously entered data will not be saved',
     hashError: 'Invalid hash',
+    backToMain: 'You will be returned to the login page, all previously entered data will not be saved',
+
+    auth: 'Please log in first',
+    tariff: 'Please select a tariff first',
 
     accept: 'Ok',
     reject: 'Cancel',
+  },
+
+  statuses: {
+    approved: {
+      title: 'Approved',
+      description: 'Approved description',
+    },
+    rejected: {
+      title: 'Rejected',
+      description: 'Rejected description',
+    },
+    close: {
+      title: 'Close',
+      description: 'Close description',
+    },
   },
 
   rules: {

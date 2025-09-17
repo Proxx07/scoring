@@ -10,6 +10,7 @@ export default {
   mouthOpened: 'Пожалуйста, закройте рот.',
   smiling: 'Пожалуйста, не улыбайтесь.',
   ok: 'Отлично, не шевелитесь!',
+  faceIdError: 'Не удалось иденфицировать личность',
 
   continue: 'Продолжить',
   confirm: 'Подтвердить',
@@ -55,11 +56,29 @@ export default {
   confirmations: {
     warning: 'Внимание!',
 
-    backToMain: 'Вас вернёт на страницу авторизации, все заполненные раннее данные не будут сохранены',
     hashError: 'Невалидный хэш',
+    backToMain: 'Вас вернёт на страницу авторизации, все заполненные раннее данные не будут сохранены',
+
+    auth: 'Сначала пройдите авторизацию',
+    tariff: 'Сначала выберите тариф',
 
     accept: 'Ок',
     reject: 'Отменить',
+  },
+
+  statuses: {
+    approved: {
+      title: 'Approved',
+      description: 'Approved description',
+    },
+    rejected: {
+      title: 'Rejected',
+      description: 'Rejected description',
+    },
+    close: {
+      title: 'Close',
+      description: 'Close description',
+    },
   },
 
   rules: {

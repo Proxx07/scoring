@@ -10,6 +10,7 @@ export default {
   mouthOpened: 'Iltimos, oq‘zingizni yoping.',
   smiling: 'Iltimos, kulmang.',
   ok: 'Yaxshi, harakatsiz turing!',
+  faceIdError: 'Shaxsni tasdiqlashning imkoni bo‘lmadi',
 
   continue: 'Davom e‘tish',
   confirm: 'Tasdiqlash',
@@ -55,8 +56,11 @@ export default {
   confirmations: {
     warning: 'Diqqat!',
 
-    backToMain: 'Siz avtorizatsiya sahifasiga qaytarasiz, avval kiritilgan barcha ma’lumotlar saqlanmaydi',
     hashError: 'Invalid hash',
+    backToMain: 'Siz avtorizatsiya sahifasiga qaytarasiz, avval kiritilgan barcha ma’lumotlar saqlanmaydi',
+
+    auth: 'Avval tizimga kiring',
+    tariff: 'Avval tarifni tanlang',
 
     accept: 'Ok',
     reject: 'Bekor qilish',
@@ -67,6 +71,21 @@ export default {
     minLength: 'Uzunlik {opt} dan katta bo‘lishi kerak',
     minValue: 'Qiymat {opt} dan katta bo‘lishi kerak',
     invalidDate: 'Sana noto‘g‘ri kiritilgan! Iltimos, sanani "kun/oy/yil" formatida kiriting',
+  },
+
+  statuses: {
+    approved: {
+      title: 'Approved',
+      description: 'Approved description',
+    },
+    rejected: {
+      title: 'Rejected',
+      description: 'Rejected description',
+    },
+    close: {
+      title: 'Close',
+      description: 'Close description',
+    },
   },
 
   toast: {

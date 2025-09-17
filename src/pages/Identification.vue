@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { IPassportData } from '@/composables/useFaceID/types';
 import { Button } from 'primevue';
 import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
 import $axios from '@/api';
@@ -24,15 +25,25 @@ const handleCameraActive = () => {
 
 const handlePhoto = async (imageBlob: Blob) => {
   photoChecking.value = true;
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  await new Promise(resolve => setTimeout(resolve, 2000));
   const formData = new FormData();
   formData.append('ContractorId', globalStore.userID);
   formData.append('Image', imageBlob);
-  const { data, error } = await $axios.post('/api/partner/ConfirmIdentification', formData);
-  if (error || !data) return;
+
+  const { data, error } = await $axios.post<IPassportData>('/api/partner/ConfirmIdentification', formData);
   photoChecking.value = false;
-  responseStatus.value = 'error';
-  console.log(data);
+  if (error || !data) {
+    if (error?.response?.data && typeof error.response.data === 'string') {
+      responseStatus.value = error.response.data;
+    }
+    else {
+      responseStatus.value = 'faceIdError';
+    }
+  }
+  else {
+    responseStatus.value = 'faceIdSuccess';
+    console.log(data);
+  }
 };
 
 const restartVideo = () => {

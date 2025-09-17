@@ -60,11 +60,11 @@ const lang = computed({
   --p-select-padding-x: .5rem;
   --p-icon-size: 1rem;
   --p-select-background: transparent;
+  border: 0 !important;
+  box-shadow: none !important;
   @include media-max($mobile) {
     --p-select-padding-x: 0;
   }
-  border: 0 !important;
-  box-shadow: none !important;
   :deep(.p-select-dropdown) {
     background: transparent;
     color: currentColor;

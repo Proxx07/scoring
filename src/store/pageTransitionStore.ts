@@ -6,8 +6,5 @@ export const usePageTransitionStore = defineStore('page-transition', () => {
 
   const transitionName = computed(() => isBack.value ? 'route-back-transition' : 'route-transition');
 
-  return {
-    isBack,
-    transitionName,
-  };
+  return { isBack, transitionName };
 });

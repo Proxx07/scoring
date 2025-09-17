@@ -2,7 +2,8 @@
 import type { MessageProps } from 'primevue/message';
 import type { IEmits, IProps } from '@/composables/useFaceID/types';
 import { Button, Message, ProgressSpinner } from 'primevue';
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
+
 import { useI18n } from 'vue-i18n';
 import { reload } from '@/assets/icons';
 import RoundProgress from '@/components/UI/RoundProgress.vue';
@@ -18,23 +19,23 @@ const {
 } = useFaceID(props, emit);
 
 const messageSeverity = computed<MessageProps['severity']>(() => {
-  if (props.responseStatus === 'error') return 'error';
+  if (!props.responseStatus ? status.value === 'ok' || props.loading : props.responseStatus === 'faceIdSuccess') return 'success';
   if (initializing.value) return 'info';
-  if (status.value === 'ok' || props.loading) return 'success';
   return 'error';
 });
 
 const messageText = computed<string>(() => {
-  if (props.responseStatus === 'error') return 'Error from backend';
-  if (initializing.value) return 'loading';
-  if (status.value === 'ok' || props.loading) return 'ok';
-  return status.value;
+  if (initializing.value) return t('loading');
+  if (!props.responseStatus && (status.value === 'ok' || props.loading)) return t('ok');
+  if (props.responseStatus && props.responseStatus !== 'faceIdSuccess') {
+    if (props.responseStatus === 'faceIdError') return t('faceIdError');
+    return props.responseStatus;
+  }
+  return t(status.value);
 });
 
-watch(() => props.responseStatus, (value) => {
-  if (value === 'error') {
-    setTimeout(refreshFaceDetection, 1500);
-  }
+const myIdError = computed(() => {
+  return props.responseStatus && props.responseStatus !== 'faceIdSuccess';
 });
 
 onMounted(() => {
@@ -48,29 +49,26 @@ onMounted(() => {
     <video ref="video" autoplay muted playsinline class="video-feed" />
     <canvas ref="overlay" class="canvas-overlay" />
     <div class="target-box">
-      <div class="font-24-b">
-        Идентификация
-      </div>
-
       <div class="status-wrapper">
-        <Message v-if="!props.responseStatus || props.responseStatus === 'error'" :severity="messageSeverity" class="message">
+        <Message v-if="messageText" :severity="messageSeverity" class="message">
           <div class="font-18-b">
-            {{ t(messageText) }}
+            {{ messageText }}
           </div>
         </Message>
         <RoundProgress v-if="!props.responseStatus && status === 'ok' && !loading" :duration="3" :size="40" @loaded="handlePhotoUpload" />
         <ProgressSpinner v-if="loading" stroke-width="8" class="size-4" />
       </div>
 
-      <div class="font-16-b mt-auto">
+      <div v-if="!myIdError" class="font-16-b mt-auto">
         Убедитесь, что ваше лицо хорошо видно, вы находитесь в хорошо освещённом помещении, и камера работает исправно.
       </div>
 
       <Button
-        v-if="responseStatus === 'success'"
+        v-else
         severity="primary"
         label="Повторить"
         size="large"
+        class="mt-auto"
         :icon="reload"
         style="pointer-events: all"
         @click="refreshFaceDetection"
@@ -131,7 +129,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 4rem 2rem;
+  padding: 3.6rem 2rem;
   // ellipse mask
   -webkit-mask-image: radial-gradient(ellipse 55% 42% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
   mask-image: radial-gradient(ellipse 55% 42% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
