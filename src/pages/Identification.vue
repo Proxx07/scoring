@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { IPassportData } from '@/composables/useFaceID/types';
 import { Button } from 'primevue';
-import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
+import { nextTick, onBeforeMount, onBeforeUnmount, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import $axios from '@/api';
 import { reload } from '@/assets/icons';
 import FaceId from '@/components/Auth/FaceId.vue';
@@ -17,18 +18,18 @@ const photoChecking = ref(false);
 
 const responseStatus = ref<string>('');
 
-// const $router = useRouter();
+const $router = useRouter();
 
 const handleCameraActive = () => {
   faceIdActive.value = !document.hidden;
 };
 
-const handlePhoto = async (imageBlob: Blob) => {
+const handlePhoto = async (imageBase64: string) => {
   photoChecking.value = true;
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  await new Promise(resolve => setTimeout(resolve, 1000));
   const formData = new FormData();
   formData.append('ContractorId', globalStore.userID);
-  formData.append('Image', imageBlob);
+  formData.append('Image', imageBase64);
 
   const { data, error } = await $axios.post<IPassportData>('/api/partner/ConfirmIdentification', formData);
   photoChecking.value = false;
@@ -42,7 +43,11 @@ const handlePhoto = async (imageBlob: Blob) => {
   }
   else {
     responseStatus.value = 'faceIdSuccess';
-    console.log(data);
+    globalStore.passportData = data;
+
+    nextTick(() => {
+      $router.push({ name: 'user-info' });
+    });
   }
 };
 
@@ -88,7 +93,7 @@ onBeforeUnmount(() => {
         И попбробуйте обновить страницу.
       </h3>
 
-      <Button severity="primary" label="Обновить" size="large" :icon="reload" icon-pos="right" @click="reloadPage" />
+      <Button label="Обновить" size="large" :icon="reload" icon-pos="right" @click="reloadPage" />
     </div>
   </div>
 </template>

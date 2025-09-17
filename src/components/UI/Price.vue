@@ -21,5 +21,6 @@ div {
 }
 span {
   color: var(--secondary-800);
+  font-weight: normal;
 }
 </style>

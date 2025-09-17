@@ -24,6 +24,8 @@ export default {
   currency: 'soʻm',
   month: 'oy',
 
+  reloadWarning: 'Diqqat! Agar siz sahifani qayta yuklasangiz, identifikatsiya jarayonini qaytadan o‘tishingizga to‘g‘ri keladi',
+
   main: {
     title: 'Roʻyxatdan oʻtish',
     enterSMS: 'SMS kodini kiriting',
@@ -37,12 +39,12 @@ export default {
   userInfo: {
     title: 'Sizning tafsilotlaringiz',
     fullName: 'Toʻliq ism-sharif',
+    sex: 'Jinsi',
     birthDate: 'Tugʻilgan sana',
     phone: 'Telefon raqami',
     pinfl: 'PINFL',
     tin: 'INN',
-    district: 'Tuman',
-    street: 'Koʻcha',
+    address: 'Manzil',
     note: 'Iltimos, taqdim etgan shaxsiy maʻlumotlaringiz toʻgʻri ekanligiga ishonch hosil qiling va uni tasdiqlang.',
   },
 
@@ -83,8 +85,8 @@ export default {
       description: 'Rejected description',
     },
     close: {
-      title: 'Close',
-      description: 'Close description',
+      title: 'Bu sahifa endi dolzarb emas',
+      description: 'Ma’lumotlar eskirgan va undan foydalanib bo‘lmaydi. Iltimos, sahifani qo‘lda yoping.',
     },
   },
 

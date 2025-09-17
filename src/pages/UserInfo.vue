@@ -1,42 +1,43 @@
 <script setup lang="ts">
 import { Button } from 'primevue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
 import InfoItem from '@/components/UserInfo/InfoItem.vue';
+import { useGlobalData } from '@/store/userGlobalData.ts';
 
 const { t } = useI18n();
-/* const $router = useRouter(); */
+const $router = useRouter();
+const globalData = useGlobalData();
 
-const mockInfoItems = [
-  { title: t('userInfo.fullName'), value: 'Arnold Theodore Shwarzenegger' },
-  { title: t('userInfo.birthDate'), value: '12.12.2012' },
-  { title: t('userInfo.phone'), value: '+998 90 000-00-00' },
-  { title: t('userInfo.pinfl'), value: '77777777777777' },
-  { title: t('userInfo.tin'), value: '777777' },
-  { title: t('userInfo.district'), value: 'Район' },
-  { title: t('userInfo.street'), value: 'Улица' },
-];
+const userInfoItems = computed(() => [
+  { title: t('userInfo.fullName'), value: `${globalData.passportData.surName} ${globalData.passportData.givenName} ${globalData.passportData.patronymic}` },
+  { title: t('userInfo.sex'), value: globalData.passportData.sex },
+  { title: t('userInfo.birthDate'), value: globalData.passportData.dateOfBirth },
+  { title: t('userInfo.phone'), value: globalData.passportData.phone },
+  { title: t('userInfo.pinfl'), value: globalData.passportData.pinfl },
+  { title: t('userInfo.tin'), value: globalData.passportData.tin },
+  { title: t('userInfo.address'), value: globalData.passportData.address },
+]);
 </script>
 
 <template>
-  <PageWrapper title="Ваши данные" back-enabled>
+  <PageWrapper :title="t('userInfo.title')">
     <div class="user-info">
-      <div class="photo">
-        PHOTO
-      </div>
       <InfoItem
-        v-for="(item, index) in mockInfoItems"
+        v-for="(item, index) in userInfoItems"
         :key="item.value"
         :title="item.title"
         :value="item.value"
-        :class="[index > mockInfoItems.length - 2 && 'colspan-2']"
+        :class="[index === userInfoItems.length - 1 && 'colspan-2']"
       />
       <div class="note">
         {{ t('userInfo.note') }}
       </div>
     </div>
 
-    <Button :label="t('confirm')" fluid size="large" class="mt-auto" />
+    <Button :label="t('confirm')" fluid size="large" class="mt-auto" @click="$router.push({ name: 'payment-schedule' })" />
   </PageWrapper>
 </template>
 
@@ -55,6 +56,7 @@ const mockInfoItems = [
   text-align: center;
   grid-column: span 2;
   font: var(--font-14-r);
+  opacity: .6;
 }
 
 .photo {

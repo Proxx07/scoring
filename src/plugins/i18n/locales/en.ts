@@ -24,6 +24,8 @@ export default {
   currency: 'UZS',
   month: 'month',
 
+  reloadWarning: 'Attention! If you reload the page, you will have to go through the identification process again',
+
   main: {
     title: 'Registration',
     enterSMS: 'Enter SMS code',
@@ -37,12 +39,12 @@ export default {
   userInfo: {
     title: 'Your details',
     fullName: 'Full name',
+    sex: 'Sex',
     birthDate: 'Date of birth',
     phone: 'Phone number',
     pinfl: 'PINFL',
     tin: 'TIN',
-    district: 'District',
-    street: 'Street',
+    address: 'Address',
     note: 'Please make sure that the personal data you have provided is correct and confirm it.',
   },
 
@@ -76,8 +78,8 @@ export default {
       description: 'Rejected description',
     },
     close: {
-      title: 'Close',
-      description: 'Close description',
+      title: 'This page is no longer relevant',
+      description: 'The data has expired and it can’t be used anymore. Please close the page manually.',
     },
   },
 

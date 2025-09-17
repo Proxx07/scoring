@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
+import { identificationMiddleware } from '@/middlewares/identificationMiddleware.ts';
 
 const routes: RouteRecordRaw[] = [
 
@@ -6,6 +7,12 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'main',
     component: () => import('@/pages/Main.vue'),
+  },
+
+  {
+    path: '/registration',
+    name: 'registration',
+    component: () => import('@/pages/Registration.vue'),
   },
 
   {
@@ -18,12 +25,22 @@ const routes: RouteRecordRaw[] = [
     path: '/user-info',
     name: 'user-info',
     component: () => import('@/pages/UserInfo.vue'),
+    beforeEnter: identificationMiddleware,
   },
 
   {
-    path: '/registration',
-    name: 'registration',
-    component: () => import('@/pages/Registration.vue'),
+    path: '/payment-schedule',
+    name: 'payment-schedule',
+    component: () => import('@/pages/PaymentSchedule.vue'),
+    beforeEnter: identificationMiddleware,
+
+  },
+
+  {
+    path: '/credit-card',
+    name: 'credit-card',
+    component: () => import('@/pages/CreditCard.vue'),
+    beforeEnter: identificationMiddleware,
   },
 
   {

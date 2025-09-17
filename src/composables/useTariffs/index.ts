@@ -35,6 +35,7 @@ export const useTariffs = () => {
     tariffs,
     loading,
     activeTariff,
+
     getTariffs,
     selectTariff,
   };

@@ -1,8 +1,10 @@
+import type { BadgeProps } from 'primevue';
 import type { ButtonProps } from 'primevue/button';
 import type { PrimeVueConfiguration } from 'primevue/config';
 import type { RendererElement, RendererNode, VNode } from 'vue';
 import { definePreset } from '@primeuix/styled';
 import Aura from '@primeuix/themes/aura';
+import { badgeConfig, badgePt } from '@/plugins/PrimeVue/badge';
 import { skeletonConfig } from '@/plugins/PrimeVue/skeleton';
 import { toastConfig, toastPt } from '@/plugins/PrimeVue/toast';
 import { buttonConfig, buttonPt } from './button';
@@ -134,6 +136,8 @@ const customPreset = definePreset(Aura, {
       },
     },
 
+    badge: badgeConfig(),
+
     card: cardConfig(),
 
     skeleton: {
@@ -166,6 +170,10 @@ export const options: PrimeVueConfiguration = {
       return buttonPt(instance);
     },
 
+    badge(instance: VNode<RendererNode, RendererElement, BadgeProps>) {
+      return badgePt(instance);
+    },
+
     inputtext(instance) {
       return inputFieldPt(instance);
     },
@@ -177,6 +185,7 @@ export const options: PrimeVueConfiguration = {
     inputnumber(instance) {
       return inputNumberPt(instance);
     },
+
     select(instance) {
       return selectPt(instance);
     },

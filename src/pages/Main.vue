@@ -9,6 +9,9 @@ import Price from '@/components/UI/Price.vue';
 import Product from '@/components/UserInfo/Product.vue';
 import Tariff from '@/components/UserInfo/Tariff.vue';
 import { useTariffs } from '@/composables/useTariffs';
+import { useGlobalData } from '@/store/userGlobalData.ts';
+
+const globalStore = useGlobalData();
 
 const {
   tariffs, loading, getTariffs,
@@ -18,6 +21,17 @@ const {
 
 const { t } = useI18n();
 const $router = useRouter();
+
+const navigationHandler = () => {
+  if (!globalStore.userID) {
+    return $router.push({ name: 'registration' });
+  }
+  if (!globalStore.passportData) {
+    return $router.push({ name: 'identification' });
+  }
+  $router.push({ name: 'payment-schedule' });
+};
+
 onBeforeMount(() => {
   getTariffs();
 });
@@ -68,7 +82,7 @@ onBeforeMount(() => {
           fluid
           :label="t('confirm')"
           :disabled="!activeTariff"
-          @click="$router.push({ name: 'registration' })"
+          @click="navigationHandler"
         />
       </div>
     </template>

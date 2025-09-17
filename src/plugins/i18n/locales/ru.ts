@@ -24,6 +24,8 @@ export default {
   currency: 'сум',
   month: 'месяц',
 
+  reloadWarning: 'Внимание! Если вы перезагрузите страницу, вам придётся заново пройти процесс идентификации',
+
   main: {
     title: 'Оформление',
     enterSMS: 'Введите SMS-код',
@@ -37,12 +39,12 @@ export default {
   userInfo: {
     title: 'Ваши данные',
     fullName: 'Ф.И.О',
+    sex: 'Пол',
     birthDate: 'Дата рождения',
     phone: 'Номер телефона',
     pinfl: 'ПНФЛ',
     tin: 'ИНН',
-    district: 'Район',
-    street: 'Улица',
+    address: 'Адрес',
     note: 'Пожалуйста, убедитесь, что указанные персональные данные верны, и подтвердите их.',
   },
 
@@ -76,8 +78,8 @@ export default {
       description: 'Rejected description',
     },
     close: {
-      title: 'Close',
-      description: 'Close description',
+      title: 'Эта страница больше неактуальна',
+      description: 'Данные устарели и использовать её нельзя. Пожалуйста, закройте страницу вручную',
     },
   },
 

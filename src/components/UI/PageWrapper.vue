@@ -83,7 +83,6 @@ const slots = useSlots();
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
   position: relative;
   min-height: 4.4rem;
   padding-left: var(--px);
@@ -105,25 +104,28 @@ const slots = useSlots();
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
+  padding-top: 2rem;
   padding-left: var(--px);
   padding-right: var(--px);
+  overflow-y: auto;
 }
 
 .page-footer {
-  padding: 1.5rem var(--px);
+  padding: 1.5rem var(--px) 0;
   color: v-bind(color);
   background: v-bind(bg);
   transition: var(--transition-fast);
   position: relative;
-  &.has-content {
-    border-radius: var(--radius-l) var(--radius-l) 0 0;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-  }
   @include media-max($mobile) {
     padding-top: 1.3rem;
-    padding-bottom: 1.3rem;
+  }
+  &.has-content {
+    border-radius: var(--radius-l) var(--radius-l) 0 0;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    padding-bottom: 1.5rem;
+    @include media-max($mobile) {
+      padding-bottom: 1.3rem;
+    }
   }
 }
 </style>

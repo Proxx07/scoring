@@ -2,7 +2,7 @@ export type TStatus = 'noFace' | 'tooClose' | 'tooFar' | 'offCenter' | 'tilted' 
 
 export interface IEmits {
   (e: 'restart'): void
-  (e: 'photo-taken', value: Blob): void
+  (e: 'photo-taken', value: string): void
   (e: 'face-id-refreshed'): void
 }
 

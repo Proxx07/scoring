@@ -61,7 +61,7 @@ export const preferableSquare = (size: { width: number, height: number }): ISqua
   };
 };
 
-export const takePhoto = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<{ image: string, blob: Blob }> => {
+export const takePhoto = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<{ image: string, base64Image: string, blob: Blob }> => {
   const size = {
     width: video.clientWidth,
     height: video.clientHeight,
@@ -79,9 +79,13 @@ export const takePhoto = async (canvas: HTMLCanvasElement, video: HTMLVideoEleme
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (!blob) return;
+
       const image = URL.createObjectURL(blob);
+      const base64Image = canvas.toDataURL('image/png');
+
       ctx.clearRect(0, 0, size.width, size.height);
-      resolve({ image, blob });
+
+      resolve({ image, blob, base64Image });
     }, 'image/png');
   });
 };

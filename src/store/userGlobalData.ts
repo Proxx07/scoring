@@ -1,3 +1,4 @@
+import type { IPassportData } from '@/composables/useFaceID/types';
 import type { IHashDecodeObject, IProduct } from '@/composables/useTariffs/types';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -15,11 +16,27 @@ export const useGlobalData = defineStore('global-state', () => {
   const orderId = ref<string>('');
   const products = ref<IProduct[]>([]);
 
+  const passportData = ref<IPassportData>();
+
+  /*
+  const setWindowBeforeUnloadWarning = () => {
+    // const { t } = useI18n();
+    window.addEventListener('beforeunload', async (event) => {
+      event.preventDefault();
+      console.log(t('reloadWarning'));
+      event.returnValue = t('reloadWarning');
+      return t('reloadWarning');
+    });
+  };
+  */
+
   const closeWindowHandler = async () => {
-    setHash('');
     try {
       window.close();
+      $router.push({ name: 'status', params: { type: 'close' } });
     }
+
+    // eslint-disable-next-line unused-imports/no-unused-vars
     catch (error) {
       $router.push({ name: 'status', params: { type: 'close' } });
     }
@@ -33,6 +50,7 @@ export const useGlobalData = defineStore('global-state', () => {
 
     const { data, error }
       = await $axios.get<IHashDecodeObject>(`/api/partner/DecodeBase64String/${hash.value}`);
+
     if (error || !data.products.length || !data.orderId) {
       await $confirm.error({ title: 'toast.error', subtitle: 'confirmations.hashError' });
       return await closeWindowHandler();
@@ -65,5 +83,7 @@ export const useGlobalData = defineStore('global-state', () => {
 
     orderId,
     products,
+
+    passportData,
   };
 });

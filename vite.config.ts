@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => {
               res.setHeader('Set-Cookie', [`token=${result.token}; Path=/; SameSite=Strict; Secure`]);
               res.end(JSON.stringify({ success: true }));
             }
-            // eslint-disable-next-line unused-imports/no-unused-vars
+
             catch (e) {
               res.statusCode = 500;
               res.end(JSON.stringify({ success: false }));

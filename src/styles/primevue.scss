@@ -34,6 +34,11 @@ body {
     }
   }
 
+  .p-badge {
+    padding: var(--p-badge-padding) !important;
+    border-radius: var(--p-badge-border-radius) !important;
+  }
+
   .p-toast-message-icon {
     margin-top: -0.1rem;
   }

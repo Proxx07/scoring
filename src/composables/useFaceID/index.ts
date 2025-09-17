@@ -34,8 +34,8 @@ export const useFaceID = (_: IProps, emit: IEmits) => {
   };
 
   const handlePhotoUpload = async () => {
-    const { blob } = await takePhoto(overlay.value!, video.value!);
-    emit('photo-taken', blob);
+    const { base64Image } = await takePhoto(overlay.value!, video.value!);
+    emit('photo-taken', base64Image);
     status.value = 'noFace';
     clearInterval(interval);
   };

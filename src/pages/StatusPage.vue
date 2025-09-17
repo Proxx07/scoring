@@ -25,6 +25,8 @@ const { pageTitle, pageDescription, pageIcon } = useStatusPage();
   flex-direction: column;
   gap: 5rem;
   align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .icon {
   width: 15rem;

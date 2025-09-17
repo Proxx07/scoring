@@ -55,7 +55,7 @@ onMounted(() => {
             {{ messageText }}
           </div>
         </Message>
-        <RoundProgress v-if="!props.responseStatus && status === 'ok' && !loading" :duration="3" :size="40" @loaded="handlePhotoUpload" />
+        <RoundProgress v-if="!props.responseStatus && status === 'ok' && !loading" :duration="2" :size="40" @loaded="handlePhotoUpload" />
         <ProgressSpinner v-if="loading" stroke-width="8" class="size-4" />
       </div>
 
