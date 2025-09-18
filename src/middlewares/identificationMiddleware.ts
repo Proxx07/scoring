@@ -10,5 +10,6 @@ export const identificationMiddleware = (to: RouteLocationNormalized) => {
     if (!globalStore.passportData) return { name: 'identification' };
     return true;
   }
+  if (to.name === 'identification' && globalStore.passportData) return { name: 'user-info' };
   return true;
 };

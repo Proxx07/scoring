@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
 import Price from '@/components/UI/Price.vue';
+import TransitionContainer from '@/components/UI/TransitionContainer.vue';
 import Product from '@/components/UserInfo/Product.vue';
 import Tariff from '@/components/UserInfo/Tariff.vue';
 import { useTariffs } from '@/composables/useTariffs';
@@ -73,10 +74,12 @@ onBeforeMount(() => {
     </div>
     <template #page-footer>
       <div class="footer">
-        <div class="footer-top">
-          {{ activeTariff ? 'Итоговая сумма' : t('selectTariff') }}
-          <Price v-if="activeTariff" :price="activeTariff.totalAmount" />
-        </div>
+        <TransitionContainer name="scale-fade" :key-id="activeTariff?.id">
+          <div class="footer-top">
+            {{ activeTariff ? t('totalAmount') : `${t('selectTariff')}!` }}
+            <Price v-if="activeTariff" :price="activeTariff.totalAmount" />
+          </div>
+        </TransitionContainer>
         <Button
           size="large"
           fluid
@@ -110,10 +113,10 @@ onBeforeMount(() => {
   gap: .6rem;
 }
 .footer-top {
+  padding-bottom: 0.5rem;
   display: flex;
   gap: 1rem;
   justify-content: space-between;
   font: var(--font-14-r);
-  padding-bottom: 0.5rem;
 }
 </style>

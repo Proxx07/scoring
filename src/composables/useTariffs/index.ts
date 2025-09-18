@@ -2,6 +2,7 @@ import type { IProduct, ITariff } from './types';
 import { computed, ref } from 'vue';
 import $axios from '@/api';
 import { useFetchStates } from '@/composables/UI';
+import { $confirm } from '@/plugins/confirmation.ts';
 import { useGlobalData } from '@/store/userGlobalData.ts';
 
 export const useTariffs = () => {
@@ -15,12 +16,16 @@ export const useTariffs = () => {
   });
 
   const selectTariff = (tariff: ITariff) => {
-    globalStore.setTariff(tariff.id);
+    globalStore.tariffId = tariff.id;
   };
 
   const getTariffs = async () => {
     const { data, error } = await $axios.get('/api/partner/GetTariffs', { loading });
     tariffs.value = error ? [] : data;
+    if (error || (globalStore.tariffId && !activeTariff.value)) {
+      await $confirm.error({ title: 'statuses.close.title', subtitle: 'statuses.close.description' });
+      await globalStore.closeWindowHandler();
+    }
   };
 
   const products = computed<IProduct[]>(() => globalStore.products);

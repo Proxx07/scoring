@@ -1,41 +1,27 @@
 import type { IPassportData } from '@/composables/useFaceID/types';
 import type { IHashDecodeObject, IProduct } from '@/composables/useTariffs/types';
+import { useSessionStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import $axios from '@/api';
-import { useSessionStorageHelper } from '@/composables/UI/';
 import { $confirm } from '@/plugins/confirmation.ts';
 
 export const useGlobalData = defineStore('global-state', () => {
   const $router = useRouter();
-  const { value: userID, setValue: setUserID } = useSessionStorageHelper<string>('user-id', '');
-  const { value: hash, setValue: setHash } = useSessionStorageHelper<string>('hash-token', '');
-  const { value: tariffId, setValue: setTariff } = useSessionStorageHelper<string>('tariff-id', '');
+  const userID = useSessionStorage<string>('user-id', '');
+  const hash = useSessionStorage<string>('hash-token', '');
+  const tariffId = useSessionStorage<string>('tariff-id', '');
+  const passportData = useSessionStorage<IPassportData | undefined>('passport-data', undefined);
 
   const orderId = ref<string>('');
   const products = ref<IProduct[]>([]);
-
-  const passportData = ref<IPassportData>();
-
-  /*
-  const setWindowBeforeUnloadWarning = () => {
-    // const { t } = useI18n();
-    window.addEventListener('beforeunload', async (event) => {
-      event.preventDefault();
-      console.log(t('reloadWarning'));
-      event.returnValue = t('reloadWarning');
-      return t('reloadWarning');
-    });
-  };
-  */
 
   const closeWindowHandler = async () => {
     try {
       window.close();
       $router.push({ name: 'status', params: { type: 'close' } });
     }
-
     // eslint-disable-next-line unused-imports/no-unused-vars
     catch (error) {
       $router.push({ name: 'status', params: { type: 'close' } });
@@ -70,16 +56,12 @@ export const useGlobalData = defineStore('global-state', () => {
 
   return {
     userID,
-    setUserID,
-
     hash,
-    setHash,
-
     tariffId,
-    setTariff,
 
     getHashInfo,
     getProductsInfo,
+    closeWindowHandler,
 
     orderId,
     products,

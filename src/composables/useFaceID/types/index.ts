@@ -1,3 +1,5 @@
+import type { ICard } from '@/composables/useCreditCard/types';
+
 export type TStatus = 'noFace' | 'tooClose' | 'tooFar' | 'offCenter' | 'tilted' | 'turned' | 'notLooking' | 'mouthOpened' | 'smiling' | 'ok';
 
 export interface IEmits {
@@ -34,4 +36,6 @@ export interface IPassportData {
   sex: string
   surName: string
   tin: string
+
+  bankCard?: ICard
 }

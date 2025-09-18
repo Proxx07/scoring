@@ -10,7 +10,7 @@ export const hashInfoMiddleware = async (to: RouteLocationNormalized) => {
   if (to.name === 'status' || to.name === 'not-found') return true;
 
   if (routerHash) {
-    globalStore.setHash(routerHash);
+    globalStore.hash = routerHash;
     const url = new URL(window.location.href);
     url.searchParams.delete('hash');
     document.location.href = url.href;

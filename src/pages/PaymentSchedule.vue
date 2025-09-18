@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Badge, Button, Card, Skeleton } from 'primevue';
 import { onBeforeMount } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
 import Price from '@/components/UI/Price.vue';
@@ -8,6 +9,7 @@ import InfoItem from '@/components/UserInfo/InfoItem.vue';
 import { useTariffs } from '@/composables/useTariffs';
 
 const $route = useRouter();
+const { t } = useI18n();
 const { activeTariff, loading, getTariffs } = useTariffs();
 
 onBeforeMount(() => {
@@ -16,20 +18,20 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <PageWrapper title="График платежей">
+  <PageWrapper :title="t('paymentsSchedule.title')">
     <Card>
       <template #content>
         <Skeleton v-if="loading" width="100%" height="12.4rem" />
         <div v-else-if="activeTariff" class="tariff-info">
-          <InfoItem class="font-16-r" row title="Срок рассрочки:" :value="activeTariff.name" />
-          <InfoItem class="font-16-r" row title="Первоначальный взнос:">
+          <InfoItem class="font-16-r" row :title="`${t('paymentsSchedule.installmentPeriod')}:`" :value="activeTariff.name" />
+          <InfoItem class="font-16-r" row :title="`${t('initialPayment')}:`">
             <Price :price="activeTariff.prepaymentAmount" class="font-16-b" />
           </InfoItem>
-          <InfoItem class="font-16-r" row title="Итоговая сумма:">
+          <InfoItem class="font-16-r" row :title="`${t('totalAmount')}:`">
             <Price :price="activeTariff.totalAmount" class="font-16-b" />
           </InfoItem>
 
-          <Button label="Изменить тариф" severity="secondary" @click="$route.push({ name: 'main' })" />
+          <Button :label="t('changeTariff')" severity="secondary" @click="$route.push({ name: 'main' })" />
         </div>
       </template>
     </Card>
@@ -37,8 +39,8 @@ onBeforeMount(() => {
     <Card class="schedule">
       <template #content>
         <div class="schedule-info">
-          <div class="font-14-b" v-text="'Дата'" />
-          <div class="font-14-b" v-text="'Сумма'" />
+          <div class="font-14-b" v-text="t('date')" />
+          <div class="font-14-b" v-text="t('sum')" />
         </div>
 
         <div v-for="i in 24" :key="i" class="table-row schedule-info">
@@ -51,7 +53,7 @@ onBeforeMount(() => {
     </Card>
 
     <template #page-footer>
-      <Button label="Оформить" size="large" class="mt-auto" fluid @click="$route.push({ name: 'credit-card' })" />
+      <Button :label="t('confirm')" size="large" class="mt-auto" fluid @click="$route.push({ name: 'credit-card' })" />
     </template>
   </PageWrapper>
 </template>

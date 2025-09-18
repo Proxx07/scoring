@@ -17,12 +17,17 @@ export default {
   sending: 'Yuborish...',
 
   chooseTariff: 'Tarifni tanlash',
+  changeTariff: 'Tarifni o‘zgartirish',
   products: 'Mahsulotlar',
   productsSum: 'Mahsulotlar summasi',
   selectTariff: 'Tarifni tanlang',
   initialPayment: 'Dastlabki toʻlov',
+  totalAmount: 'Umumiy hisob',
   currency: 'soʻm',
   month: 'oy',
+  date: 'Sana',
+  sum: 'Summa',
+  add: 'Qo‘shish',
 
   reloadWarning: 'Diqqat! Agar siz sahifani qayta yuklasangiz, identifikatsiya jarayonini qaytadan o‘tishingizga to‘g‘ri keladi',
 
@@ -55,10 +60,21 @@ export default {
     agreement: `Men <a href="#" target="_blank">ommaviy oferta</a> shartlariga roziman va shaxsiy ma’lumotlarimni qayta ishlash va foydalanishga rozilik beraman`,
   },
 
+  paymentsSchedule: {
+    title: 'To‘lov jadvali',
+    installmentPeriod: 'To‘lov muddati',
+  },
+
+  creditCard: {
+    title: 'Karta qo‘shish',
+    description: 'Dastlabki to‘lov siz qo‘shgan bank kartasidan yechib olinadi.',
+    enterCard: 'Karta ma’lumotlarini kiriting',
+  },
+
   confirmations: {
     warning: 'Diqqat!',
 
-    hashError: 'Invalid hash',
+    hashError: 'Yaroqsiz hash',
     backToMain: 'Siz avtorizatsiya sahifasiga qaytarasiz, avval kiritilgan barcha ma’lumotlar saqlanmaydi',
 
     auth: 'Avval tizimga kiring',
@@ -86,7 +102,7 @@ export default {
     },
     close: {
       title: 'Bu sahifa endi dolzarb emas',
-      description: 'Ma’lumotlar eskirgan va undan foydalanib bo‘lmaydi. Iltimos, sahifani qo‘lda yoping.',
+      description: 'Ma’lumotlar eskirgan va undan foydalanib bo‘lmaydi. Iltimos, sahifani yoping.',
     },
   },
 

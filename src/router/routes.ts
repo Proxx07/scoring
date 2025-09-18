@@ -19,6 +19,7 @@ const routes: RouteRecordRaw[] = [
     path: '/identification',
     name: 'identification',
     component: () => import('@/pages/Identification.vue'),
+    beforeEnter: identificationMiddleware,
   },
 
   {

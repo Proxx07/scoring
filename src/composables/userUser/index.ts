@@ -25,7 +25,7 @@ export const useUser = () => {
       = await $axios.post<string>('/api/partner/CreateContractor', { ...authFormDTO(form.value), productsInfo: globalStore.getProductsInfo() }, { loading });
     if (error) return;
 
-    globalStore.setUserID(data);
+    globalStore.userID = data;
     start(1);
     step.value = 'otp';
   };

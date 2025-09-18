@@ -46,9 +46,6 @@ const userInfoItems = computed(() => [
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem 1.5rem;
-  .colspan-2 {
-    grid-column: span 2;
-  }
 }
 
 .note {

@@ -17,12 +17,17 @@ export default {
   sending: 'Sending...',
 
   chooseTariff: 'Choose tariff',
+  changeTariff: 'Change tariff',
   products: 'Products',
   productsSum: 'Products total',
   selectTariff: 'Select a tariff',
   initialPayment: 'Initial payment',
+  totalAmount: 'Total amount',
   currency: 'UZS',
   month: 'month',
+  date: 'Date',
+  sum: 'Sum',
+  add: 'Add',
 
   reloadWarning: 'Attention! If you reload the page, you will have to go through the identification process again',
 
@@ -55,6 +60,17 @@ export default {
     agreement: `I agree with the terms of the <a href="#" target="_blank">public offer</a> and give my consent to the processing and use of my personal data`,
   },
 
+  paymentsSchedule: {
+    title: 'Payment schedule',
+    installmentPeriod: 'Installment period',
+  },
+
+  creditCard: {
+    title: 'Adding a card',
+    description: 'The initial payment will be debited from the bank card you added.',
+    enterCard: 'Enter card details',
+  },
+
   confirmations: {
     warning: 'Warning!',
 
@@ -78,8 +94,8 @@ export default {
       description: 'Rejected description',
     },
     close: {
-      title: 'This page is no longer relevant',
-      description: 'The data has expired and it can’t be used anymore. Please close the page manually.',
+      title: 'This session is no longer relevant',
+      description: 'The data has expired and it can’t be used anymore. Please close the tab.',
     },
   },
 

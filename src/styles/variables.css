@@ -153,3 +153,7 @@ html {
     margin-top: auto;
     margin-bottom: auto;
 }
+
+.colspan-2 {
+    grid-column: span 2;
+}

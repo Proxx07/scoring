@@ -31,7 +31,8 @@ const handlePhoto = async (imageBase64: string) => {
   formData.append('ContractorId', globalStore.userID);
   formData.append('Image', imageBase64);
 
-  const { data, error } = await $axios.post<IPassportData>('/api/partner/ConfirmIdentification', formData);
+  const { data, error }
+      = await $axios.post<IPassportData>('/api/partner/ConfirmIdentification', formData);
   photoChecking.value = false;
   if (error || !data) {
     if (error?.response?.data && typeof error.response.data === 'string') {
