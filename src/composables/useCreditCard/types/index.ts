@@ -3,7 +3,8 @@ export type CardTypes = 'uzcard' | 'humo';
 export interface ICardPostBody {
   pan: string
   expiry: string
-  contractorId: string
+  // contractorId: string
+  orderId: string
 }
 
 export interface ICard {

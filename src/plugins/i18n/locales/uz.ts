@@ -34,7 +34,7 @@ export default {
   main: {
     title: 'Roʻyxatdan oʻtish',
     enterSMS: 'SMS kodini kiriting',
-    smsWasSent: 'SMS kod quyidagi raqamga yuborildi:',
+    smsWasSent: 'SMS kod telefon raqamga yuborildi',
     enterSMSToContinue: 'Davom etish uchun uni pastga kiriting.',
     requestCode: 'Kodini qayta so‘rash',
     resendTimer: 'Qayta yuborishgacha: {time}',

@@ -14,7 +14,7 @@ const globalData = useGlobalData();
 const userInfoItems = computed(() => [
   { title: t('userInfo.fullName'), value: `${globalData.passportData?.surName ?? ''} ${globalData.passportData?.givenName ?? ''} ${globalData.passportData?.patronymic ?? ''}` },
   { title: t('userInfo.sex'), value: globalData.passportData?.sex ?? '' },
-  { title: t('userInfo.birthDate'), value: globalData.passportData?.dateOfBirth ?? '' },
+  { title: t('userInfo.birthDate'), value: globalData.passportData?.dateOfBirth?.split('T')[0] ?? '' },
   { title: t('userInfo.phone'), value: globalData.passportData?.phone ?? '' },
   { title: t('userInfo.pinfl'), value: globalData.passportData?.pinfl ?? '' },
   { title: t('userInfo.tin'), value: globalData.passportData?.tin ?? '' },

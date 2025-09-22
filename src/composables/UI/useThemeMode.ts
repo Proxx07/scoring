@@ -29,7 +29,7 @@ export const useThemeMode = () => {
     },
   });
 
-  const isDark = computed(() => !themeMode.value);
+  const isDark = computed(() => themeMode.value === 'dark');
 
   return {
     modes,

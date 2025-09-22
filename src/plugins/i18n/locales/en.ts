@@ -34,7 +34,7 @@ export default {
   main: {
     title: 'Registration',
     enterSMS: 'Enter SMS code',
-    smsWasSent: 'SMS code was sent to the number:',
+    smsWasSent: 'SMS code was sent to the phone number',
     enterSMSToContinue: 'Enter it below to continue.',
     requestCode: 'Request code again',
     resendTimer: 'Resend available in: {time}',

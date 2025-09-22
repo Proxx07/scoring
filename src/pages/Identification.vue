@@ -27,6 +27,7 @@ const handleCameraActive = () => {
 const handlePhoto = async (imageBase64: string) => {
   photoChecking.value = true;
   await new Promise(resolve => setTimeout(resolve, 1000));
+
   const formData = new FormData();
   formData.append('ContractorId', globalStore.userID);
   formData.append('Image', imageBase64);

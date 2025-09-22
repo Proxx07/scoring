@@ -1,5 +1,5 @@
 import type { ICard, ICardPostBody } from './types';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import $axios from '@/api';
 import { useTimer } from '@/composables/UI';
 import { useGlobalData } from '@/store/userGlobalData.ts';
@@ -15,11 +15,14 @@ export const useCreditCard = () => {
   const otp = ref<string>('');
   const cardToken = ref<string>('');
 
+  const cardInfo = computed<ICard | undefined>(() => globalStore.passportData?.bankCard);
+
   const setBody = (): ICardPostBody => {
     return {
       pan: pan.value,
-      expiry: expiry.value.split('/').reverse().join('/'),
-      contractorId: globalStore.userID,
+      orderId: globalStore.orderId,
+      expiry: expiry.value.split('/').reverse().join(''),
+      /* contractorId: globalStore.userID, */
     };
   };
 
@@ -40,7 +43,19 @@ export const useCreditCard = () => {
     const { data, error }
       = await $axios.post<ICard>('/api/partner/ConfirmBankCard', { otp: otp.value, cardToken: cardToken.value }, { loading });
     if (error || !data) return;
-    if (data) globalStore.passportData = { ...globalStore.passportData!, bankCard: { ...data } };
+    if (data) {
+      globalStore.passportData = { ...globalStore.passportData!, bankCard: { ...data } };
+      cardToken.value = '';
+    }
+  };
+
+  const confirmInstallment = async () => {
+    if (loading.value) return;
+    loading.value = true;
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    loading.value = false;
+    console.log('Installment confirmed!');
+    // const {} = await
   };
 
   return {
@@ -48,12 +63,15 @@ export const useCreditCard = () => {
     expiry,
     loading,
 
+    otp,
     time,
 
+    cardInfo,
     cardToken,
     isTimerActive,
 
     createBankCard,
     confirmBankCard,
+    confirmInstallment,
   };
 };

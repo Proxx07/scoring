@@ -10,10 +10,11 @@ import { useTariffs } from '@/composables/useTariffs';
 
 const $route = useRouter();
 const { t } = useI18n();
-const { activeTariff, loading, getTariffs } = useTariffs();
+const { activeTariff, loading, getTariffs, schedule, getSchedule } = useTariffs();
 
 onBeforeMount(() => {
   getTariffs();
+  getSchedule();
 });
 </script>
 
@@ -21,7 +22,7 @@ onBeforeMount(() => {
   <PageWrapper :title="t('paymentsSchedule.title')">
     <Card>
       <template #content>
-        <Skeleton v-if="loading" width="100%" height="12.4rem" />
+        <Skeleton v-if="loading" width="100%" height="13.2rem" />
         <div v-else-if="activeTariff" class="tariff-info">
           <InfoItem class="font-16-r" row :title="`${t('paymentsSchedule.installmentPeriod')}:`" :value="activeTariff.name" />
           <InfoItem class="font-16-r" row :title="`${t('initialPayment')}:`">
@@ -36,24 +37,30 @@ onBeforeMount(() => {
       </template>
     </Card>
 
-    <Card class="schedule">
+    <Card v-if="schedule.length" class="schedule">
       <template #content>
         <div class="schedule-info">
           <div class="font-14-b" v-text="t('date')" />
           <div class="font-14-b" v-text="t('sum')" />
         </div>
 
-        <div v-for="i in 24" :key="i" class="table-row schedule-info">
+        <div v-for="item in schedule" :key="item.order" class="table-row schedule-info">
           <div class="table-item">
-            <Badge :value="i" /> 01.01.2024
+            <Badge :value="item.order" /> {{ item.date }}
           </div>
-          <Price :price="1000000" class="font-14-b" />
+          <Price :price="item.payment" class="font-14-b" />
         </div>
       </template>
     </Card>
 
     <template #page-footer>
-      <Button :label="t('confirm')" size="large" class="mt-auto" fluid @click="$route.push({ name: 'credit-card' })" />
+      <Button
+        :label="t('confirm')"
+        size="large"
+        class="mt-auto"
+        fluid
+        @click="$route.push({ name: 'credit-card' })"
+      />
     </template>
   </PageWrapper>
 </template>

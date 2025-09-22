@@ -22,3 +22,13 @@ export interface ITariff {
   monthlyPaymentAmount: number
   totalAmount: number
 }
+
+export interface IRepaymentSchedule {
+  order: number
+  date: string
+  amount: number
+  payment: number
+  principalPayment: number
+  interestPayment: number
+  rest: number
+}

@@ -12,7 +12,7 @@ export const useGlobalData = defineStore('global-state', () => {
   const userID = useSessionStorage<string>('user-id', '');
   const hash = useSessionStorage<string>('hash-token', '');
   const tariffId = useSessionStorage<string>('tariff-id', '');
-  const passportData = useSessionStorage<IPassportData | undefined>('passport-data', undefined);
+  const passportData = useSessionStorage<IPassportData | undefined>('passport-data', undefined, { serializer: { read: value => value ? (JSON.parse(value) as IPassportData) : undefined, write: value => (value == null ? '' : JSON.stringify(value)) } });
 
   const orderId = ref<string>('');
   const products = ref<IProduct[]>([]);

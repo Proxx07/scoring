@@ -104,10 +104,11 @@ const slots = useSlots();
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-top: 2rem;
+  margin-top: 2rem;
   padding-left: var(--px);
   padding-right: var(--px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .page-footer {

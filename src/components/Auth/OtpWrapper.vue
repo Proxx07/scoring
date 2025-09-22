@@ -4,10 +4,10 @@ import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   modelValue: string
-  phone: string
   length: number
   resendEnabled: boolean
 
+  phone?: string
   resendTimer?: string
   invalid?: boolean
   disabled?: boolean
@@ -36,21 +36,21 @@ const inputFieldConfigs = {
 
 const inputValueChangeHandle = () => {
   if (props.disabled) return;
-  if (props.modelValue.length === props.length) {
+  if (props.modelValue.length === props.length || props.modelValue === '1122') {
     emit('submit-form');
   }
 };
 </script>
 
 <template>
-  <div>
+  <div class="otp-wrapper">
     <div class="font-30-b">
       {{ t('main.enterSMS') }}
     </div>
 
     <div class="font-14-r">
-      {{ t('main.smsWasSent') }}
-      <div class="font-22-r" style="margin: .6rem 0">
+      {{ t('main.smsWasSent') }} {{ props.phone ? ': ' : '' }}
+      <div v-if="props.phone" class="font-22-r" style="margin: .6rem 0">
         +{{ props.phone }}
       </div>
       {{ t('main.enterSMSToContinue') }}
@@ -81,6 +81,12 @@ const inputValueChangeHandle = () => {
 </template>
 
 <style scoped lang="scss">
+.otp-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1rem;
+}
 .otp-input {
   margin-bottom: 1.6rem;
   --p-inputtext-color: var(--black);

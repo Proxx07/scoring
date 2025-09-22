@@ -43,13 +43,18 @@ export const useFaceID = (_: IProps, emit: IEmits) => {
   const facePointsCalc = async () => {
     const detection = await faceapi
       .detectSingleFace(video.value!, new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.7 }))
+      // .detectSingleFace(video.value!, new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.8 }))
       .withFaceLandmarks(true);
 
     if (!overlay.value) return;
     if (initializing.value) initializing.value = false;
     if (!detection) return status.value = 'noFace';
 
+    /*
+    const ctx = overlay.value.getContext('2d')!;
+    ctx.clearRect(0, 0, overlay.value.width, overlay.value.height);
     faceapi.draw.drawFaceLandmarks(overlay.value, detection.landmarks);
+    */
 
     const box = detection.detection.box;
     const centerX = box.x + box.width / 2;
@@ -90,6 +95,15 @@ export const useFaceID = (_: IProps, emit: IEmits) => {
       status.value = 'smiling';
       return;
     }
+
+    /* if (mouthHeight > square.height * 0.09) {
+      status.value = 'mouthOpened';
+      return;
+    }
+    if (mouthWidth > box.width * 0.38) {
+      status.value = 'smiling';
+      return;
+    } */
 
     const leftEyePoints = landmarks.getLeftEye();
     const rightEyePoints = landmarks.getRightEye();

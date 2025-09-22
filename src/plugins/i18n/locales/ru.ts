@@ -34,7 +34,7 @@ export default {
   main: {
     title: 'Оформление',
     enterSMS: 'Введите SMS-код',
-    smsWasSent: 'SMS-код был выслан на номер:',
+    smsWasSent: 'SMS-код был выслан на телефонный номер',
     enterSMSToContinue: 'Введите его ниже, чтобы продолжить.',
     requestCode: 'Запросить код повторно',
     resendTimer: 'До повторной отправки: {time}',

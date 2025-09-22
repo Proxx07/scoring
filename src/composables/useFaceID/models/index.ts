@@ -56,9 +56,18 @@ export const preferableSquare = (size: { width: number, height: number }): ISqua
   const square = width * height;
   return {
     width, height,
-    faceSquareMin: square * 1.01,
+    faceSquareMin: square * 1.06,
     faceSquareMax: square * 1.48,
   };
+
+  /* const width = size.width * 55 / 100;
+  const height = size.height * 65 / 100;
+  const square = width * height;
+  return {
+    width, height,
+    faceSquareMin: square * 1.14,
+    faceSquareMax: square * 1.48,
+  }; */
 };
 
 export const takePhoto = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<{ image: string, base64Image: string, blob: Blob }> => {

@@ -130,13 +130,19 @@ onMounted(() => {
   flex-direction: column;
   gap: 1rem;
   padding: 3.6rem 2rem;
-  // ellipse mask
   -webkit-mask-image: radial-gradient(ellipse 55% 42% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
   mask-image: radial-gradient(ellipse 55% 42% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
   @include media-min($tablet) {
     -webkit-mask-image: radial-gradient(ellipse 40% 45% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
     mask-image: radial-gradient(ellipse 40% 45% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
   }
+  // ellipse mask
+  /*-webkit-mask-image: radial-gradient(ellipse 65% 50% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
+  mask-image: radial-gradient(ellipse 65% 50% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
+  @include media-min($mobile) {
+    -webkit-mask-image: radial-gradient(ellipse 50% 54% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
+    mask-image: radial-gradient(ellipse 50% 54% at 50% 50%, transparent 0%, transparent 70%, black 70.1%, black 100%);
+  }*/
   // ellipse mask end
 }
 
