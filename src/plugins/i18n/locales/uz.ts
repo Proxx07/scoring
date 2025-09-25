@@ -80,6 +80,10 @@ export default {
     auth: 'Avval tizimga kiring',
     tariff: 'Avval tarifni tanlang',
 
+    numberConfirmation: 'SMS tasdiqlash va kartani muvaffaqiyatli bog‘lashdan so‘ng mablag‘lar avtomatik ravishda yechib olinadi. Davom etishni xohlaysizmi?',
+    cardApplied: 'Bank kartangiz muvaffaqiyatli bog‘landi.',
+    cardPayments: 'Shartnoma tasdiqlangandan so‘ng mablag‘lar avtomatik tarzda yechib olinadi.',
+
     accept: 'Ok',
     reject: 'Bekor qilish',
   },

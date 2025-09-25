@@ -32,6 +32,7 @@ const { t } = useI18n();
 .tariff-card {
   border: 1px solid transparent;
   cursor: pointer;
+  user-select: none;
   &.active {
     border-color: var(--primary-500);
   }

@@ -2,6 +2,7 @@ import type { ICard, ICardPostBody } from './types';
 import { computed, ref } from 'vue';
 import $axios from '@/api';
 import { useTimer } from '@/composables/UI';
+import { $confirm } from '@/plugins/confirmation.ts';
 import { useGlobalData } from '@/store/userGlobalData.ts';
 
 export const useCreditCard = () => {
@@ -29,10 +30,18 @@ export const useCreditCard = () => {
   const createBankCard = async () => {
     if (loading.value || isTimerActive.value) return;
 
+    const ok = await $confirm.default({
+      title: 'confirmations.warning',
+      subtitle: 'confirmations.numberConfirmation',
+    });
+
+    if (!ok) return;
+
     const { data, error }
       = await $axios.post<string>('/api/partner/CreateBankCard', setBody(), { loading });
 
     if (!data || error) return;
+
     cardToken.value = data;
     start(1);
   };
@@ -46,6 +55,7 @@ export const useCreditCard = () => {
     if (data) {
       globalStore.passportData = { ...globalStore.passportData!, bankCard: { ...data } };
       cardToken.value = '';
+      await $confirm.success({ title: 'toast.success', subtitle: 'confirmations.cardApplied' });
     }
   };
 
@@ -54,8 +64,6 @@ export const useCreditCard = () => {
     loading.value = true;
     await new Promise(resolve => setTimeout(resolve, 1000));
     loading.value = false;
-    console.log('Installment confirmed!');
-    // const {} = await
   };
 
   return {

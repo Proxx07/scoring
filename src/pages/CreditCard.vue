@@ -12,6 +12,7 @@ const $route = useRouter();
 const { t } = useI18n();
 
 const { activeTariff, loading: tariffsLoading, getTariffs } = useTariffs();
+
 const {
   pan, expiry, loading: cardLoading, cardToken, cardInfo,
   otp, time, isTimerActive, createBankCard, confirmBankCard, confirmInstallment,

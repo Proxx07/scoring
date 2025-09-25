@@ -80,6 +80,10 @@ export default {
     auth: 'Please log in first',
     tariff: 'Please select a tariff first',
 
+    numberConfirmation: 'After SMS confirmation and successful card linking, funds will be deducted automatically. Are you sure you want to continue?',
+    cardApplied: 'Your bank card has been successfully linked.',
+    cardPayments: 'Payments will be deducted automatically after the contract is approved.',
+
     accept: 'Ok',
     reject: 'Cancel',
   },

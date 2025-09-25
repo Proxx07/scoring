@@ -9,7 +9,6 @@ import { ConfirmationTypesColor, ConfirmationTypesIcon } from '@/store/confirmat
 const props = defineProps<IProps>();
 const emit = defineEmits<IEmits>();
 const { t } = useI18n();
-
 const color = computed(() => ConfirmationTypesColor[props.type]);
 const icon = computed(() => ConfirmationTypesIcon[props.type]);
 </script>
@@ -44,7 +43,7 @@ const icon = computed(() => ConfirmationTypesIcon[props.type]);
 <style scoped lang="scss">
 .card {
   width: 100%;
-  max-width: 36rem;
+  max-width: 38rem;
   :deep(.p-card-content) {
     display: flex;
     flex-direction: column;
