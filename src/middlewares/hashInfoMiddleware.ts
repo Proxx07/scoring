@@ -19,7 +19,7 @@ export const hashInfoMiddleware = async (to: RouteLocationNormalized) => {
     if (!globalStore.orderId) {
       await globalStore.getHashInfo();
     }
-    if (!globalStore.orderId || !globalStore.products.length) return;
+    if (!globalStore.orderId || !globalStore?.products?.length) return;
   }
 
   if (globalStore.isApproved) return { name: 'status', params: { type: 'approved' } };

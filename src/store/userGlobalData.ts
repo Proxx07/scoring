@@ -38,7 +38,7 @@ export const useGlobalData = defineStore('global-state', () => {
     const { data, error }
       = await $axios.get<IHashDecodeObject>(`/api/partner/DecodeBase64String/${hash.value}`);
 
-    if (error || !data.products.length || !data.orderId) {
+    if (error || !data?.products?.length || !data.orderId) {
       await $confirm.error({ title: 'toast.error', subtitle: 'confirmations.hashError' });
       return await closeWindowHandler();
     }
