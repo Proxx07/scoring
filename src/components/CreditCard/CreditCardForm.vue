@@ -85,11 +85,6 @@ const expiryModel = defineModel<string>('expiry', { required: true });
     <div v-else class="card-preview-wrapper">
       <CreditCardPreview :card="activeCard" />
 
-      <div class="note">
-        {{ t('confirmations.cardPayments') }}
-      </div>
-
-      <!--
       <Button
         :label="buttonText"
         :loading="cardLoading"
@@ -98,7 +93,6 @@ const expiryModel = defineModel<string>('expiry', { required: true });
         fluid
         @click="emit('submit-pay');"
       />
-      -->
     </div>
   </div>
 </template>

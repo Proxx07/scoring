@@ -16,6 +16,7 @@ export const useGlobalData = defineStore('global-state', () => {
 
   const orderId = ref<string>('');
   const products = ref<IProduct[]>([]);
+  const isApproved = ref<boolean>(false);
 
   const closeWindowHandler = async () => {
     try {
@@ -44,6 +45,7 @@ export const useGlobalData = defineStore('global-state', () => {
 
     orderId.value = data.orderId;
     products.value = data.products;
+    isApproved.value = /* data.isApproved */ true;
   };
 
   const getProductsInfo = () => {
@@ -66,6 +68,7 @@ export const useGlobalData = defineStore('global-state', () => {
     orderId,
     products,
 
+    isApproved,
     passportData,
   };
 });

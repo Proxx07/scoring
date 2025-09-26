@@ -1,5 +1,6 @@
 import type { ICard, ICardPostBody } from './types';
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import $axios from '@/api';
 import { useTimer } from '@/composables/UI';
 import { $confirm } from '@/plugins/confirmation.ts';
@@ -7,6 +8,7 @@ import { useGlobalData } from '@/store/userGlobalData.ts';
 
 export const useCreditCard = () => {
   const globalStore = useGlobalData();
+  const $router = useRouter();
   const { start, time, isTimerActive } = useTimer();
 
   const pan = ref<string>('');
@@ -30,16 +32,8 @@ export const useCreditCard = () => {
   const createBankCard = async () => {
     if (loading.value || isTimerActive.value) return;
 
-    const ok = await $confirm.default({
-      title: 'confirmations.warning',
-      subtitle: 'confirmations.numberConfirmation',
-    });
-
-    if (!ok) return;
-
     const { data, error }
       = await $axios.post<string>('/api/partner/CreateBankCard', setBody(), { loading });
-
     if (!data || error) return;
 
     cardToken.value = data;
@@ -61,9 +55,28 @@ export const useCreditCard = () => {
 
   const confirmInstallment = async () => {
     if (loading.value) return;
-    loading.value = true;
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    loading.value = false;
+    const ok = await $confirm.default({
+      title: 'confirmations.warning',
+      subtitle: 'confirmations.numberConfirmation',
+    });
+
+    if (!ok) return;
+
+    const { data, error }
+      = await $axios.post(`/api/partner/ConfirmOrder/${globalStore.orderId}`, { loading });
+    if (!data || error) return;
+
+    await $confirm.success({ title: 'toast.success', subtitle: 'confirmations.cardPayments' });
+    $router.push({ name: 'status', params: { type: 'approved' } });
+  };
+
+  const backClickHandler = () => {
+    if (cardToken.value) {
+      cardToken.value = '';
+    }
+    else {
+      $router.push({ name: 'payment-schedule' });
+    }
   };
 
   return {
@@ -81,5 +94,6 @@ export const useCreditCard = () => {
     createBankCard,
     confirmBankCard,
     confirmInstallment,
+    backClickHandler,
   };
 };

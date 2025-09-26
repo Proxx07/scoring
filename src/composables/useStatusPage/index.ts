@@ -11,6 +11,7 @@ export const useStatusPage = () => {
   const pageTitle = t(`statuses.${pageType}.title`);
   const pageDescription = t(`statuses.${pageType}.description`);
   const pageIcon = statusIcons[pageType];
+  const iconColor = pageType === 'approved' ? 'var(--p-green-500)' : 'var(--p-red-500)';
 
-  return { pageTitle, pageDescription, pageIcon };
+  return { pageTitle, pageDescription, pageIcon, iconColor };
 };

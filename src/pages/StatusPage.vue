@@ -3,13 +3,13 @@ import PageWrapper from '@/components/UI/PageWrapper.vue';
 import VIcon from '@/components/UI/VIcon.vue';
 import { useStatusPage } from '@/composables/useStatusPage';
 
-const { pageTitle, pageDescription, pageIcon } = useStatusPage();
+const { pageTitle, pageDescription, pageIcon, iconColor } = useStatusPage();
 </script>
 
 <template>
   <PageWrapper :title="pageTitle">
     <div class="status-page">
-      <VIcon :icon="pageIcon" class="icon" span-bg="var(--p-red-500)" color="var(--white)" />
+      <VIcon :icon="pageIcon" class="icon" :span-bg="iconColor" color="var(--white)" />
 
       <div class="font-16-r">
         {{ pageDescription }}

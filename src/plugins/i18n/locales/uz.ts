@@ -80,7 +80,7 @@ export default {
     auth: 'Avval tizimga kiring',
     tariff: 'Avval tarifni tanlang',
 
-    numberConfirmation: 'SMS tasdiqlash va kartani muvaffaqiyatli bog‘lashdan so‘ng mablag‘lar avtomatik ravishda yechib olinadi. Davom etishni xohlaysizmi?',
+    numberConfirmation: 'Tasdiqlangandan so‘ng mablag‘lar bog‘langan kartadan avtomatik tarzda yechib olinadi. Davom etishni xohlaysizmi?',
     cardApplied: 'Bank kartangiz muvaffaqiyatli bog‘landi.',
     cardPayments: 'Shartnoma tasdiqlangandan so‘ng mablag‘lar avtomatik tarzda yechib olinadi.',
 
@@ -97,12 +97,12 @@ export default {
 
   statuses: {
     approved: {
-      title: 'Approved',
-      description: 'Approved description',
+      title: 'Kredit tasdiqlandi',
+      description: 'Siz rasmiy hujjat bilan tanishishingiz yoki uni keyinchalik foydalanish uchun yuklab olishingiz mumkin.',
     },
     rejected: {
-      title: 'Rejected',
-      description: 'Rejected description',
+      title: 'Rad etildi',
+      description: 'Afsuski, muddatli to‘lov tasdiqlanmadi. Siz 3 oydan keyin qaytadan ariza topshirishingiz mumkin bo‘ladi.',
     },
     close: {
       title: 'Bu sahifa endi dolzarb emas',

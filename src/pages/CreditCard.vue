@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 import OtpWrapper from '@/components/Auth/OtpWrapper.vue';
 import CreditCardForm from '@/components/CreditCard/CreditCardForm.vue';
 import PageWrapper from '@/components/UI/PageWrapper.vue';
 import { useCreditCard } from '@/composables/useCreditCard';
 import { useTariffs } from '@/composables/useTariffs';
 
-const $route = useRouter();
 const { t } = useI18n();
 
 const { activeTariff, loading: tariffsLoading, getTariffs } = useTariffs();
@@ -16,6 +14,7 @@ const { activeTariff, loading: tariffsLoading, getTariffs } = useTariffs();
 const {
   pan, expiry, loading: cardLoading, cardToken, cardInfo,
   otp, time, isTimerActive, createBankCard, confirmBankCard, confirmInstallment,
+  backClickHandler,
 } = useCreditCard();
 
 const bg = computed(() => cardToken.value ? 'var(--primary-500)' : undefined);
@@ -24,19 +23,10 @@ const title = computed<string>(() => !cardToken.value ? t('creditCard.title') : 
 
 const buttonText = computed(() => {
   if (cardLoading.value) return t('sending');
-  if (isTimerActive.value) return t('main.resendTimer', { time: time.value });
   if (cardInfo.value) return t('confirm');
+  if (isTimerActive.value) return t('main.resendTimer', { time: time.value });
   return t('add');
 });
-
-const backClickHandler = () => {
-  if (cardToken.value) {
-    cardToken.value = '';
-  }
-  else {
-    $route.push({ name: 'payment-schedule' });
-  }
-};
 
 const transitionName = computed(() => cardToken.value ? 'slide-in-right' : 'slide-in-left');
 

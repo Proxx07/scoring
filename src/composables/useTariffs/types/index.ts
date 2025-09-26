@@ -8,6 +8,7 @@ export interface IHashDecodeObject {
   orderId: string
   products: IProduct[]
   tariffId: string
+  isApproved: boolean
 }
 
 export interface ITariff {

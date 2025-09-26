@@ -22,6 +22,8 @@ export const hashInfoMiddleware = async (to: RouteLocationNormalized) => {
     if (!globalStore.orderId || !globalStore.products.length) return;
   }
 
+  if (globalStore.isApproved) return { name: 'status', params: { type: 'approved' } };
+
   if (to.name === 'main') return true;
   if (!globalStore.tariffId) {
     await $confirm.info({ title: 'confirmations.warning', subtitle: 'confirmations.tariff' });

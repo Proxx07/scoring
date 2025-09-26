@@ -80,7 +80,7 @@ export default {
     auth: 'Please log in first',
     tariff: 'Please select a tariff first',
 
-    numberConfirmation: 'After SMS confirmation and successful card linking, funds will be deducted automatically. Are you sure you want to continue?',
+    numberConfirmation: 'After confirmation, funds will be debited automatically from the linked card. Are you sure you want to continue?',
     cardApplied: 'Your bank card has been successfully linked.',
     cardPayments: 'Payments will be deducted automatically after the contract is approved.',
 
@@ -90,12 +90,12 @@ export default {
 
   statuses: {
     approved: {
-      title: 'Approved',
-      description: 'Approved description',
+      title: 'Credit approved',
+      description: 'You can review the official document or download it for further use.',
     },
     rejected: {
       title: 'Rejected',
-      description: 'Rejected description',
+      description: 'Unfortunately, the installment plan was not approved. You will be able to reapply in 3 months.',
     },
     close: {
       title: 'This session is no longer relevant',
