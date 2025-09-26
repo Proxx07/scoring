@@ -63,7 +63,7 @@ export const useCreditCard = () => {
     if (!ok) return;
 
     const { data, error }
-      = await $axios.post(`/api/partner/ConfirmOrder/${globalStore.orderId}`, { loading });
+      = await $axios.post(`/api/partner/ConfirmOrder/${globalStore.orderId}`, undefined, { loading });
     if (!data || error) return;
 
     await $confirm.success({ title: 'toast.success', subtitle: 'confirmations.cardPayments' });

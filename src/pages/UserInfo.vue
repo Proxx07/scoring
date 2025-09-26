@@ -17,7 +17,7 @@ const userInfoItems = computed(() => [
   { title: t('userInfo.birthDate'), value: globalData.passportData?.dateOfBirth?.split('T')[0] ?? '' },
   { title: t('userInfo.phone'), value: globalData.passportData?.phone ?? '' },
   { title: t('userInfo.pinfl'), value: globalData.passportData?.pinfl ?? '' },
-  { title: t('userInfo.tin'), value: globalData.passportData?.tin ?? '' },
+  { title: t('userInfo.tin'), value: globalData.passportData?.tin ?? '-' },
   { title: t('userInfo.address'), value: globalData.passportData?.address ?? '' },
 ]);
 </script>
