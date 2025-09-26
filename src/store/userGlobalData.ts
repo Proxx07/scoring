@@ -36,7 +36,7 @@ export const useGlobalData = defineStore('global-state', () => {
     }
 
     const { data, error }
-      = await $axios.get<IHashDecodeObject>(`/api/partner/DecodeBase64String/${hash.value}`);
+      = await $axios.post<IHashDecodeObject>('/api/partner/DecodeBase64String/', { hash: hash.value });
 
     if (error || !data?.products?.length || !data.orderId) {
       await $confirm.error({ title: 'toast.error', subtitle: 'confirmations.hashError' });
@@ -45,7 +45,7 @@ export const useGlobalData = defineStore('global-state', () => {
 
     orderId.value = data.orderId;
     products.value = data.products;
-    isApproved.value = /* data.isApproved */ true;
+    isApproved.value = data.isApproved;
   };
 
   const getProductsInfo = () => {
