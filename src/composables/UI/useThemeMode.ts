@@ -1,11 +1,12 @@
-import { useLocalStorage, usePreferredDark } from '@vueuse/core';
-import { computed } from 'vue';
+import { usePreferredDark } from '@vueuse/core';
+import { computed, ref } from 'vue';
 
 type ThemeMode = 'light' | 'dark';
 
 export const useThemeMode = () => {
   const isDarkPreferable = usePreferredDark();
-  const themeMode = useLocalStorage<ThemeMode>('theme', isDarkPreferable.value ? 'dark' : 'light');
+  /* const themeMode = useLocalStorage<ThemeMode>('theme', isDarkPreferable.value ? 'dark' : 'light'); */
+  const themeMode = ref<ThemeMode>(isDarkPreferable.value ? 'dark' : 'light');
 
   const modes: ThemeMode[] = ['light', 'dark'];
 
