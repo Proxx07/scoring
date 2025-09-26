@@ -67,6 +67,7 @@ export const useCreditCard = () => {
     if (!data || error) return;
 
     await $confirm.success({ title: 'toast.success', subtitle: 'confirmations.cardPayments' });
+    globalStore.isApproved = true;
     $router.push({ name: 'status', params: { type: 'approved' } });
   };
 
